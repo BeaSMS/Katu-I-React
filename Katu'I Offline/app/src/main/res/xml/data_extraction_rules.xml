@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Sample data extraction rules file; uncomment and customize as necessary.
+   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
+   for details.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!--
+          O app e totalmente offline, sem conta de usuario real: apos
+          reinstalar, o estado correto e sempre "do zero" (onboarding novo,
+          banco vazio). O backup/restore automatico do Android estava
+          restaurando o DataStore (onboarding_complete=true) e o SQLite
+          (frequentemente em estado inconsistente de WAL) antes do app rodar
+          pela primeira vez, causando: (1) onboarding pulado numa instalacao
+          "limpa" e (2) corrupcao do banco detectada no boot.
+        -->
+        <exclude domain="file" path="datastore/" />
+        <exclude domain="database" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="datastore/" />
+        <exclude domain="database" path="." />
+    </device-transfer>
+</data-extraction-rules>

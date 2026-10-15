@@ -1,0 +1,55 @@
+{
+  "name": "katui-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Aplicativo desktop e frontend web do Katu'I.",
+  "author": "Katu'I",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "electron:dev": "concurrently -k -s first \"vite --host 127.0.0.1 --port 5173 --strictPort\" \"wait-on http://127.0.0.1:5173 && electron .\"",
+    "build:desktop": "vite build --base=./ && electron-builder --win nsis",
+    "build:desktop:mac": "vite build --base=./ && electron-builder --mac dmg",
+    "build:desktop:linux": "vite build --base=./ && electron-builder --linux AppImage",
+    "preview": "vite preview",
+    "server:push": "node --env-file=.env server/push-server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.katui.desktop",
+    "productName": "Katu'I",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/katui.ico",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "express": "^5.3.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "electron": "^44.7.2",
+    "electron-builder": "26.15.3",
+    "wait-on": "^9.5.1"
+  }
+}
