@@ -60,12 +60,29 @@ export function isApiConfigured() {
   return Boolean(API_URL)
 }
 
+export async function fetchAttachmentBlob(href) {
+  if (typeof href !== 'string' || !href) throw new Error('O exame selecionado não possui um link de arquivo.')
+  const baseUrl = globalThis.location?.href || API_URL || 'http://localhost'
+  const url = new URL(href, baseUrl)
+  const apiOrigin = API_URL ? new URL(API_URL).origin : globalThis.location?.origin
+  const headers = {}
+  if (url.origin === apiOrigin) {
+    const token = localStorage.getItem('katui.auth-token')
+    const profileId = localStorage.getItem('katui.active-profile-id')
+    if (token) headers.Authorization = `Bearer ${token}`
+    if (profileId) headers['X-Profile-Id'] = profileId
+  }
+  const response = await fetch(url, { headers })
+  if (!response.ok) throw new Error(`O download do anexo falhou (${response.status}).`)
+  return response.blob()
+}
+
 export function isAiPrescriptionEnabled() {
   return AI_PRESCRIPTION_ENABLED
 }
 
 export function isDemoMode() {
-  return Boolean(import.meta.env.DEV && localStorage.getItem('katui.demo-mode') === 'true')
+  return localStorage.getItem('katui.demo-mode') === 'true'
 }
 
 export function isGuestMode() {

@@ -133,6 +133,10 @@
 .guest-settings-notice strong { color:#3d7066; font-size:11px; }
 .guest-settings-notice span,.guest-migration-banner span { color:#78958d; font-size:10px; line-height:1.5; }
 .guest-settings-notice .soft-btn,.guest-migration-banner .soft-btn { margin:2px 0 0; }
+.notification-permission-notice { display:flex; flex-direction:column; align-items:flex-start; gap:8px; border:1px solid #e8d9b5; border-radius:9px; background:#fffaf0; padding:13px; margin:-5px 0 8px; }
+.notification-permission-notice strong { color:#80642c; font-size:11px; }
+.notification-permission-notice span { color:#8d7951; font-size:10px; line-height:1.5; }
+.notification-permission-notice .soft-btn { margin:2px 0 0; }
 .guest-migration-banner { flex-direction:row; align-items:center; justify-content:space-between; margin-bottom:18px; }
 .guest-migration-banner .soft-btn { flex:none; }
 .guest-migration-choice { display:flex !important; align-items:flex-start; gap:9px; padding:10px; border:1px solid #dcece7; border-radius:8px; background:#f8fbf9; line-height:1.5; }
@@ -140,6 +144,9 @@
 .dark-mode.app-shell .guest-settings-notice,.dark-mode.app-shell .guest-migration-banner { background:#263b35; border-color:#405a52; }
 .dark-mode.app-shell .guest-settings-notice strong { color:#d6e7e1; }
 .dark-mode.app-shell .guest-settings-notice span,.dark-mode.app-shell .guest-migration-banner span { color:#a9c0b8; }
+.dark-mode.app-shell .notification-permission-notice { background:#3a3324; border-color:#655537; }
+.dark-mode.app-shell .notification-permission-notice strong { color:#ead9aa; }
+.dark-mode.app-shell .notification-permission-notice span { color:#c7b98f; }
 .dark-mode.app-shell .guest-register-cta { background:#263b35; border-color:#405a52; color:#c8e6dc; }
 .dark-mode.app-shell .guest-login-cta { background:#22262c; border-color:#41464e; color:#bdcec8; }
 .dark-mode.app-shell .profile-menu .profile-logout { border-color:#41464e; color:#edb9af; }

@@ -48,4 +48,4 @@ O intervalo de `N` horas gera um horário a cada `N * 60` minutos. “N vezes ao
 
 As notificações não incluem nome, dose ou outros dados de saúde na tela bloqueada. A entrega depende da permissão do navegador, dispositivo conectado, sistema operacional e serviços Push do navegador; não há garantia de horário exato. A remoção de uma assinatura não apaga os agendamentos, permitindo que o app os sincronize novamente quando as notificações forem reativadas.
 
-O Guest nunca chama este serviço. Notificações Guest são locais e funcionam somente enquanto a página está aberta; não devem ser descritas como alarmes em segundo plano.
+Guest, demonstração e perfis sem Push ativo usam notificações locais, que funcionam somente enquanto a página está aberta e com permissão concedida. Para receber avisos com o site fechado, ative o Push nas configurações e mantenha o serviço implantado e ativo.

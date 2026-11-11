@@ -67,7 +67,7 @@ Os módulos abaixo usam calendário e lista de registros por data quando aplicá
 | Alarmes (`/aplicativo/alarmes`) | Lista lembretes e permite criar alarmes associados ou não a um medicamento. |
 | Receitas (`/aplicativo/receitas`) | Lista receitas e seus anexos. Permite cadastrar a receita com foto ou PDF e, depois de salvar, solicitar a leitura por IA para revisar medicamentos sugeridos e configurar alarmes antes da confirmação. Guest pode cadastrar receitas e manter anexos localmente, mas não usa IA. |
 | Diário de sintomas (`/aplicativo/sintomas`) | Exibe registros de sintomas físicos e de humor; permite registrar ambos os tipos. |
-| Sinais vitais (`/aplicativo/sinais-vitais`) | Registra e acompanha pressão, glicose, batimentos, saturação, temperatura, peso e altura. |
+| Sinais vitais (`/aplicativo/sinais-vitais`) | Registra e acompanha pressão, glicose, batimentos, saturação, temperatura, peso e altura. O calendário marca os dias com medições, e a evolução de cada indicador só aparece após pelo menos duas medições válidas daquele tipo no período selecionado. |
 | Consultas (`/aplicativo/consultas`) | Organiza compromissos de saúde, com profissional, especialidade, local e horário. |
 | Exames (`/aplicativo/exames`) | Guarda resultados de exames, categoria, tipo de resultado, data e observações, com o arquivo do resultado anexado. |
 | Documentos (`/aplicativo/documentos`) | Lista documentos de saúde; o cadastro usa título, detalhes, data e observações, e permite anexar o arquivo correspondente. |
@@ -82,7 +82,7 @@ Os módulos abaixo usam calendário e lista de registros por data quando aplicá
 
 #### Formulário de medicamento
 
-- **Medicamento comum:** nome (obrigatório), dosagem, finalidade, data e horário iniciais, frequência (intervalo de horas ou vezes ao dia), quantidade da frequência, uso contínuo ou duração, quantidade em estoque, estoque mínimo, doses por tomada, unidade de medida e opção de gerar alarmes.
+- **Medicamento comum:** cadastro em quatro etapas deslizantes no mesmo popup: medicamento (nome obrigatório, dosagem e finalidade), frequência e início, duração e estoque, dose e lembretes. Os campos incluem data e horário iniciais, frequência (intervalo de horas ou vezes ao dia), quantidade da frequência, uso contínuo ou duração, quantidade em estoque, estoque mínimo, doses por tomada, unidade de medida e opção de gerar alarmes.
 - **Anticoncepcional:** nome, padrão da cartela, data de início, horário diário e opção de lembrete diário.
 
 #### Formulário de alarme
@@ -114,6 +114,7 @@ Título (obrigatório), detalhes, data e observações; permite anexar opcionalm
 
 #### Formulário de sintoma e humor
 
+- O popup é dividido em quatro etapas deslizantes: tipo e data, sintoma ou clima, contexto e intensidade.
 - **Físico:** descrição do que está sentindo, localização escolhida ou texto livre, duração, fatores que pioram ou melhoram, impacto no dia, indicação de que impede atividades e intensidade de 1 a 10.
 - **Humor:** clima geral (positivo, neutro, baixo ou tenso), nuances relacionadas ao clima, gatilhos ou motivos e intensidade de 1 a 10.
 - Ambos permitem informar a data do registro. A descrição do sintoma físico ou o clima do humor é obrigatório.

@@ -47,7 +47,7 @@ Para executar no navegador:
 npm run dev
 ```
 
-Abra o endereço mostrado pelo Vite, normalmente `http://localhost:5173`. Se a API principal ainda não estiver disponível, escolha **Continuar como Guest** para explorar e testar o armazenamento local; login, IA, sincronização e backup na nuvem não funcionarão sem a API.
+Abra o endereço mostrado pelo Vite, normalmente `http://localhost:5173`. Para uma apresentação sem API, escolha **Experimentar protótipo** na tela inicial ou use `demo@katui.app` / `katui123` no login. A demonstração carrega registros e anexos fictícios para os perfis Ana e Lucas; alterne pelo seletor de perfil. As alterações da demonstração ficam salvas localmente neste navegador e não acessam o servidor. Os alarmes locais exigem permissão de notificações e o app aberto; para avisos com o site fechado, configure o serviço Web Push. Para testar registros próprios, escolha **Continuar como Guest**.
 
 ### 4. Antes de enviar uma alteração
 

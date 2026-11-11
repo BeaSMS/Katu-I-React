@@ -1,15 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import './styles/part-01.css'
-import './styles/part-02.css'
-import './styles/part-03.css'
-import './styles/part-04.css'
-import './styles/part-05.css'
-import './styles/part-06.css'
-import './styles/part-07.css'
-import './styles/part-08.css'
-import './styles/part-09.css'
+import './styles.css'
 import { initializeSecureStorage } from './services/secureStorage'
 
 const root = createRoot(document.getElementById('root'))

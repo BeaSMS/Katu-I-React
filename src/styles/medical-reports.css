@@ -1,0 +1,89 @@
+.medical-report-builder { display:grid; gap:18px; margin-bottom:16px; }
+.medical-report-builder > .medical-report-controls { display:grid; gap:15px; }
+.medical-report-controls .panel-header h2 { margin:0; color:#41655e; font-family:Georgia,serif; font-size:17px; }
+.medical-report-controls .panel-header p { margin:6px 0 0; color:#829891; font-size:10px; line-height:1.55; }
+.medical-report-options { min-width:0; margin:0; padding:0; border:0; }
+.medical-report-options legend { margin-bottom:9px; color:#55756e; font-size:10px; font-weight:700; }
+.medical-report-options-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.medical-report-option { display:flex; align-items:flex-start; gap:8px; min-width:0; padding:9px; border:1px solid #e1ebe7; border-radius:8px; color:#607b73; font-size:10px; line-height:1.4; }
+.medical-report-option input { flex:none; margin:1px 0 0; accent-color:#287f73; }
+.medical-report-period { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.medical-report-period label { display:grid; gap:5px; color:#69817a; font-size:9px; font-weight:700; }
+.medical-report-period input { min-width:0; padding:8px 9px; border:1px solid #dce9e5; border-radius:7px; color:#45635c; background:#fff; font:inherit; }
+.medical-report-period small { grid-column:1/-1; color:#91a59f; font-size:9px; }
+.medical-report-generate { width:max-content; }
+.medical-report-preview { padding:22px; border:1px solid #e1ebe7; border-radius:9px; background:#fff; color:#263d37; }
+.medical-report-preview > header { padding-bottom:14px; border-bottom:1px solid #dce9e5; }
+.medical-report-preview > header .eyebrow { margin-bottom:7px; color:#438c7c; }
+.medical-report-preview > header h2 { margin:0; color:#315d53; font-family:Georgia,serif; font-size:22px; }
+.medical-report-preview > header p:not(.eyebrow) { margin:8px 0 3px; color:#58776e; font-size:11px; }
+.medical-report-preview > header small { color:#829891; font-size:9px; }
+.medical-report-section { margin-top:17px; }
+.medical-report-section h3 { margin:0 0 8px; padding-bottom:6px; border-bottom:1px solid #e8efec; color:#3e7165; font-size:12px; }
+.medical-report-section h4,.medical-report-vital-group h4 { margin:14px 0 6px; color:#52766d; font-size:10px; }
+.medical-report-note { margin:7px 0; color:#788e86; font-size:9px; line-height:1.55; }
+.medical-report-record { padding:9px 0; border-bottom:1px solid #edf2f0; }
+.medical-report-record-heading { display:flex; justify-content:space-between; gap:12px; color:#3f5e56; font-size:10px; }
+.medical-report-record-heading time { flex:none; color:#829891; font-size:9px; }
+.medical-report-details { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 16px; margin:8px 0 0; }
+.medical-report-details div { min-width:0; }
+.medical-report-details dt { color:#849890; font-size:8px; font-weight:700; }
+.medical-report-details dd { overflow-wrap:anywhere; margin:2px 0 0; color:#4f6961; font-size:9px; line-height:1.45; }
+.medical-report-occurrences { display:grid; gap:4px; margin:7px 0 0; padding-left:17px; color:#617a72; font-size:9px; line-height:1.45; }
+.medical-report-vital-group { margin-top:11px; }
+.medical-report-vital-group h4 { margin:0 0 6px; }
+.medical-report-chart-wrap { margin:9px 0; padding:9px; border:1px solid #e5eeea; border-radius:7px; }
+.medical-report-chart-legend { display:flex; flex-wrap:wrap; gap:8px 16px; color:#607970; font-size:9px; }
+.medical-report-chart-legend span { display:flex; align-items:center; gap:5px; }
+.medical-report-chart-legend i { width:8px; height:8px; border-radius:50%; }
+.medical-report-chart { display:block; width:100%; min-height:130px; }
+.medical-report-chart polyline { stroke-linejoin:round; stroke-linecap:round; }
+.medical-report-exam-export { display:grid; gap:10px; }
+.medical-report-exam-export h3 { margin:0; color:#41655e; font-family:Georgia,serif; font-size:16px; }
+.medical-report-exam-export p { margin:0; color:#829891; font-size:10px; line-height:1.5; }
+.medical-report-exam-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.medical-report-exam-export > .outline-btn { width:max-content; margin:0; }
+.medical-report-empty { margin:0; color:#879b94; font-size:9px; }
+.medical-report-preview > footer { margin-top:18px; padding-top:10px; border-top:1px solid #e1ebe7; color:#778c84; font-size:8px; line-height:1.5; }
+.medical-report-actions { display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:16px; }
+.medical-report-actions .outline-btn { margin:0; }
+.medical-report-actions span { color:#81968f; font-size:9px; }
+.dark-mode.app-shell .medical-report-controls .panel-header h2 { color:#cde5dc; }
+.dark-mode.app-shell .medical-report-controls .panel-header p,.dark-mode.app-shell .medical-report-period small { color:#a0b7ae; }
+.dark-mode.app-shell .medical-report-options legend,.dark-mode.app-shell .medical-report-option { color:#c1d8cf; }
+.dark-mode.app-shell .medical-report-option,.dark-mode.app-shell .medical-report-period input { border-color:#405a52; background:#202328; }
+.dark-mode.app-shell .medical-report-period label { color:#b5cbc2; }
+.dark-mode.app-shell .medical-report-preview { border-color:#405a52; background:#202328; color:#e7e9ed; }
+.dark-mode.app-shell .medical-report-preview > header { border-color:#405a52; }
+.dark-mode.app-shell .medical-report-preview > header h2,.dark-mode.app-shell .medical-report-record-heading { color:#d5e7df; }
+.dark-mode.app-shell .medical-report-preview > header p:not(.eyebrow),.dark-mode.app-shell .medical-report-details dd { color:#b5cbc2; }
+.dark-mode.app-shell .medical-report-section h3,.dark-mode.app-shell .medical-report-record,.dark-mode.app-shell .medical-report-preview > footer { border-color:#405a52; }
+.dark-mode.app-shell .medical-report-preview > header small,.dark-mode.app-shell .medical-report-record-heading time,.dark-mode.app-shell .medical-report-details dt,.dark-mode.app-shell .medical-report-empty,.dark-mode.app-shell .medical-report-preview > footer,.dark-mode.app-shell .medical-report-actions span { color:#9bb4ac; }
+.dark-mode.app-shell .medical-report-section h4,.dark-mode.app-shell .medical-report-note,.dark-mode.app-shell .medical-report-occurrences,.dark-mode.app-shell .medical-report-chart-legend { color:#afc8bf; }
+.dark-mode.app-shell .medical-report-chart-wrap { border-color:#405a52; }
+.dark-mode.app-shell .medical-report-exam-export h3 { color:#cde5dc; }
+.dark-mode.app-shell .medical-report-exam-export p { color:#a0b7ae; }
+.high-contrast.app-shell .medical-report-option,.high-contrast.app-shell .medical-report-period input,.high-contrast.app-shell .medical-report-preview { border:2px solid #111318; color:#111318; background:#fff; }
+.high-contrast.app-shell .medical-report-preview :where(h2,h3,p,strong,dt,dd,small,time,footer) { color:#111318; }
+.high-contrast.app-shell .medical-report-exam-export { border:2px solid #111318; color:#111318; background:#fff; }
+.high-contrast.app-shell .medical-report-exam-export :where(h3,p) { color:#111318; }
+.dark-mode.high-contrast.app-shell .medical-report-option,.dark-mode.high-contrast.app-shell .medical-report-period input,.dark-mode.high-contrast.app-shell .medical-report-preview { border-color:#fff; color:#fff; background:#000; }
+.dark-mode.high-contrast.app-shell .medical-report-preview :where(h2,h3,p,strong,dt,dd,small,time,footer) { color:#fff; }
+.dark-mode.high-contrast.app-shell .medical-report-exam-export { border:2px solid #fff; color:#fff; background:#000; }
+.dark-mode.high-contrast.app-shell .medical-report-exam-export :where(h3,p) { color:#fff; }
+@media print {
+  @page { margin:18mm; }
+  body * { visibility:hidden !important; }
+  .medical-report-preview,.medical-report-preview * { visibility:visible !important; }
+  .medical-report-preview { position:absolute; inset:0; width:100%; padding:0!important; border:0!important; border-radius:0!important; background:#fff!important; color:#111!important; }
+  .medical-report-preview :where(h2,h3,p,strong,dt,dd,small,time,footer) { color:#111!important; }
+  .medical-report-preview > header,.medical-report-section h3,.medical-report-record,.medical-report-preview > footer { border-color:#bbb!important; }
+  .medical-report-actions,.medical-report-controls,.medical-report-exam-export { display:none!important; }
+  .medical-report-record { break-inside:avoid; }
+}
+@media (max-width:600px) {
+  .medical-report-options-grid,.medical-report-details,.medical-report-exam-list { grid-template-columns:1fr; }
+  .medical-report-generate { width:100%; justify-content:center; }
+  .medical-report-exam-export > .outline-btn { width:100%; justify-content:center; }
+  .medical-report-preview { padding:16px; }
+}

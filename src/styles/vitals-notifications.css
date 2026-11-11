@@ -116,6 +116,7 @@
 .record-detail-modal dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 16px; margin:18px 0; }
 .record-detail-modal dl div { min-width:0; padding:10px; border-radius:8px; background:#f6f8f6; }
 .record-detail-modal dt { color:#718980; font-size:10px; font-weight:700; text-transform:capitalize; }
+.record-detail-modal.medication-detail-modal dt { text-transform:none; }
 .record-detail-modal dd { overflow-wrap:anywhere; margin:5px 0 0; color:#213836; font-size:12px; }
 .vitals-page { display:grid; gap:16px; }
 .vitals-toolbar { display:flex; flex-wrap:wrap; align-items:flex-end; gap:12px; }
@@ -130,6 +131,7 @@
 .vital-chart { display:block; width:100%; height:auto; min-height:190px; overflow:visible; }
 .vital-chart-gridline { stroke:#e7ece9; stroke-width:1; stroke-dasharray:4 4; }
 .vital-chart circle { stroke:#fff; stroke-width:2; }
+.vital-chart polyline { stroke-linecap:round; stroke-linejoin:round; }
 .vital-chart-axis { fill:#718980; font-size:10px; }
 .asset-icon { display:inline-block; flex:none; background-color:currentColor; -webkit-mask-position:center; mask-position:center; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-size:contain; mask-size:contain; }
 .symptom-date-field { display:grid; gap:6px; margin:0 0 16px; color:#5f7971; font-size:11px; font-weight:700; }

@@ -59,13 +59,25 @@ export function useProfileActions(context) {
         setPushEnabled(true)
         setFeedbackMessage('Notificações autorizadas. Os novos alarmes poderão tocar com o site fechado.')
         try {
-          const medications = await resourceApi.list('/medications')
+          const [medications, alarms] = await Promise.all([
+            resourceApi.list('/medications'),
+            resourceApi.list('/alarms'),
+          ])
           if (!Array.isArray(medications)) throw new Error('A API retornou uma lista inválida de medicamentos.')
-          const results = await Promise.allSettled(medications.filter((medication) => medication.generateAlarms).map((medication) => scheduleMedicationReminders(medication, auth)))
+          if (!Array.isArray(alarms)) throw new Error('A API retornou uma lista inválida de alarmes.')
+          const activeAlarms = alarms.filter((alarm) => {
+            const status = String(alarm.status || '').toLowerCase()
+            return !['concluído', 'concluido', 'cancelado', 'cancelada', 'desativado'].includes(status)
+              && getAlarmTimestamp(alarm) > Date.now()
+          })
+          const results = await Promise.allSettled([
+            ...medications.filter((medication) => medication.generateAlarms).map((medication) => scheduleMedicationReminders(medication, auth)),
+            ...activeAlarms.map((alarm) => scheduleSingleReminder(alarm, alarm.id || alarm._id, auth)),
+          ])
           const failed = results.filter((result) => result.status === 'rejected')
-          if (failed.length) setGlobalActionError(`Notificações ativadas, mas ${failed.length} medicamento(s) ainda não têm alarmes. Confira data, frequência e duração e salve novamente.`)
+          if (failed.length) setGlobalActionError(`Notificações ativadas, mas ${failed.length} lembrete(s) não foram sincronizados. Confira os dados e salve novamente.`)
         } catch (error) {
-          setGlobalActionError(`Notificações ativadas, mas não foi possível sincronizar os medicamentos existentes: ${error.message}`)
+          setGlobalActionError(`Notificações ativadas, mas não foi possível sincronizar os lembretes existentes: ${error.message}`)
         }
       }
       setNotificationPermission(typeof Notification === 'undefined' ? 'unsupported' : Notification.permission)

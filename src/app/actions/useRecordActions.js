@@ -58,13 +58,14 @@ export function useRecordActions(context) {
     }
     let alarmSetupWarning = ''
     const auth = { token: localStorage.getItem('katui.auth-token'), profileId: activeProfileId }
-    if (!localMode && method === 'POST' && action.endpoint === '/medications' && payload.generateAlarms) {
+    const useBackgroundAlarms = !localMode && pushEnabled && isPushConfigured()
+    if (useBackgroundAlarms && method === 'POST' && action.endpoint === '/medications' && payload.generateAlarms) {
       try {
         await scheduleMedicationReminders({ ...response, ...payload, id: response?.id || response?.medication?.id || response?.data?.id }, auth)
       } catch (error) {
         alarmSetupWarning = `Medicamento salvo, mas os alarmes em segundo plano não foram configurados: ${error.message}`
       }
-    } else if (!localMode && action.kind === 'prescription-confirm' && payload.medications?.some((medication) => medication.generateAlarms)) {
+    } else if (useBackgroundAlarms && action.kind === 'prescription-confirm' && payload.medications?.some((medication) => medication.generateAlarms)) {
       const requestedMedications = payload.medications.filter((medication) => medication.generateAlarms)
       const savedMedications = Array.isArray(response?.medications) ? response.medications : Array.isArray(response?.createdMedications) ? response.createdMedications : []
       const results = await Promise.allSettled(requestedMedications.map(async (requested) => {
@@ -76,7 +77,7 @@ export function useRecordActions(context) {
       if (failed.length) {
         alarmSetupWarning = `Receita confirmada, mas ${failed.length} alarme(s) não foram configurados. Verifique se a API retornou os IDs dos medicamentos e confira os dados da posologia.`
       }
-    } else if (!localMode && method === 'POST' && action.endpoint === '/alarms') {
+    } else if (useBackgroundAlarms && method === 'POST' && action.endpoint === '/alarms') {
       try {
         const alarmId = response?.id || response?.alarm?.id || response?.data?.id
         await scheduleSingleReminder(payload, alarmId, auth)

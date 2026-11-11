@@ -4,6 +4,9 @@
 .high-contrast.app-shell input,.high-contrast.app-shell select,.high-contrast.app-shell textarea { background:#FFFFFF; color:#111318; border:2px solid #111318; }
 .high-contrast.app-shell *:focus-visible { outline:3px solid #005FCC; outline-offset:3px; }
 .high-contrast.app-shell .empty-state-icon,.high-contrast.app-shell .metric-icon { background:#E6E8EC; color:#111318; border:1px solid #111318; }
+.high-contrast.app-shell .form-step-heading > span,.high-contrast.app-shell .form-step-heading strong,.high-contrast.app-shell .form-step-heading small { color:#111318; }
+.high-contrast.app-shell .form-step-progress span { background:#D4D7DC; }
+.high-contrast.app-shell .form-step-progress span.active { background:#111318; }
 .dark-mode.high-contrast.app-shell,.dark-mode.high-contrast.app-shell .main-content { background:#000000; color:#FFFFFF; }
 .dark-mode.high-contrast.app-shell .sidebar,.dark-mode.high-contrast.app-shell .topbar,.dark-mode.high-contrast.app-shell .panel,.dark-mode.high-contrast.app-shell .metric-card,.dark-mode.high-contrast.app-shell .modal-card,.dark-mode.high-contrast.app-shell .profile-menu { background:#111318; border-color:#FFFFFF; }
 .dark-mode.high-contrast.app-shell .nav-item,.dark-mode.high-contrast.app-shell .profile-option,.dark-mode.high-contrast.app-shell .settings-tab { color:#FFFFFF; }
@@ -14,6 +17,9 @@
 .dark-mode.high-contrast.app-shell .outline-btn { background:#000000; color:#FFFFFF; border-color:#FFFFFF; }
 .dark-mode.high-contrast.app-shell input,.dark-mode.high-contrast.app-shell select,.dark-mode.high-contrast.app-shell textarea { background:#000000; color:#FFFFFF; border-color:#FFFFFF; }
 .dark-mode.high-contrast.app-shell .empty-state-icon,.dark-mode.high-contrast.app-shell .metric-icon { background:#30343B; color:#FFFFFF; border-color:#FFFFFF; }
+.dark-mode.high-contrast.app-shell .form-step-heading > span,.dark-mode.high-contrast.app-shell .form-step-heading strong,.dark-mode.high-contrast.app-shell .form-step-heading small { color:#FFFFFF; }
+.dark-mode.high-contrast.app-shell .form-step-progress span { background:#50555E; }
+.dark-mode.high-contrast.app-shell .form-step-progress span.active { background:#FFFFFF; }
 @media (max-width:760px) { .app-shell.text-scale-125,.app-shell.text-scale-150,.app-shell.text-scale-175,.app-shell.text-scale-200 { width:100%; } }
 .app-shell .nav-item.nav-overview { --nav-accent:#5078C8; }
 .app-shell .nav-item.nav-medications { --nav-accent:#2F916B; }

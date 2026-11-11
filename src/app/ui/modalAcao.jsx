@@ -7,8 +7,32 @@ import {
 } from '../../services/contraceptive'
 import { medications } from './dadosAplicacao'
 import { Icon, vitalNumericValue } from './interfaceCompartilhada'
-import { SymptomModal, DependentModal } from './configuracoes'
+import { DependentModal } from './configuracoes'
 import { PrescriptionReview } from './revisaoPrescricao'
+import { SymptomModal } from './modalSintomas'
+
+const medicationWizardSteps = [
+  {
+    title: 'Medicamento',
+    description: 'Informe o nome, a dosagem e a finalidade do tratamento.',
+    fields: ['name', 'dosage', 'purpose'],
+  },
+  {
+    title: 'Frequência e início',
+    description: 'Defina quando o tratamento começa e com que frequência tomar.',
+    fields: ['date', 'time', 'frequencyType', 'frequencyValue'],
+  },
+  {
+    title: 'Duração e estoque',
+    description: 'Informe a duração do tratamento e acompanhe suas unidades.',
+    fields: ['continuous', 'durationDays', 'quantity', 'minimumStock'],
+  },
+  {
+    title: 'Dose e lembretes',
+    description: 'Complete as doses por tomada e escolha se quer criar alarmes.',
+    fields: ['dosePerTake', 'unit', 'generateAlarms'],
+  },
+]
 
 export function ActionModal({ action, onClose, onSubmit, connection, selectedDate, pushEnabled }) {
   const currentTime = new Date().toTimeString().slice(0, 5)
@@ -54,11 +78,15 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
     ...(action.data || {}),
   }
   const [form, setForm] = useState(initialForm)
+  const [medicationStep, setMedicationStep] = useState(0)
+  const [stepDirection, setStepDirection] = useState('next')
   const initialFormSnapshot = useRef(JSON.stringify(initialForm))
   useEffect(() => {
     const nextForm = { ...initialForm, ...(action.data || {}) }
     initialFormSnapshot.current = JSON.stringify(nextForm)
     setForm(nextForm)
+    setMedicationStep(0)
+    setStepDirection('next')
     setFile(null)
     setFileName('')
     setFileError('')
@@ -100,6 +128,7 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
         .toLowerCase()
         .includes('anticoncepcional') ||
       Boolean(form.contraceptivePackType))
+  const isMedicationWizard = isMedication && !isContraceptiveSetup && !isConfirm && !isAi
   const isAlarm = endpoint === '/alarms' || title.includes('alarme')
   const isPrescription = endpoint === '/ai/prescription' || endpoint === '/prescriptions' || title.includes('receita')
   const isDocument = endpoint === '/documents' || title.includes('documento')
@@ -226,6 +255,12 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
         ? { ...form, type: event.target.value, value: '', systolic: '', diastolic: '' }
         : { ...form, [key]: event.target.value },
     )
+  const medicationStepIndex = Math.min(medicationStep, medicationWizardSteps.length - 1)
+  const isLastMedicationStep = medicationStepIndex === medicationWizardSteps.length - 1
+  const moveMedicationStep = (nextStep) => {
+    setStepDirection(nextStep > medicationStepIndex ? 'next' : 'previous')
+    setMedicationStep(nextStep)
+  }
   const submit = async (nextAction) => {
     setSubmitting(true)
     setSubmissionError('')
@@ -519,6 +554,9 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
       { key: 'date', label: 'Data', type: 'date' },
       { key: 'notes', label: 'Observações', type: 'textarea' },
     )
+  const visibleFields = isMedicationWizard
+    ? fields.filter((field) => medicationWizardSteps[medicationStepIndex].fields.includes(field.key))
+    : fields
   if (action.kind === 'ai-review')
     return <PrescriptionReview action={action} onClose={onClose} onSubmit={onSubmit} pushEnabled={pushEnabled} />
   if (action.kind === 'success')
@@ -680,9 +718,31 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
           <div className="confirm-warning">Você poderá desfazer esta remoção logo após confirmar.</div>
         ) : (
           !isAi && (
-            <div className={`modal-form${isContraceptiveSetup ? ' contraceptive-form' : ''}`}>
-              {fields.map((field) =>
-                field.type === 'textarea' ? (
+            <>
+              {isMedicationWizard && (
+                <div className="form-stepper">
+                  <div className="form-step-heading" aria-live="polite">
+                    <span>
+                      Etapa {medicationStepIndex + 1} de {medicationWizardSteps.length}
+                    </span>
+                    <strong>{medicationWizardSteps[medicationStepIndex].title}</strong>
+                    <small>{medicationWizardSteps[medicationStepIndex].description}</small>
+                  </div>
+                  <div className="form-step-progress" aria-hidden="true">
+                    {medicationWizardSteps.map((step, index) => (
+                      <span key={step.title} className={index <= medicationStepIndex ? 'active' : ''} />
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div
+                key={isMedicationWizard ? medicationStepIndex : 'form'}
+                className={`modal-form${isContraceptiveSetup ? ' contraceptive-form' : ''}${
+                  isMedicationWizard ? ` form-step-panel slide-${stepDirection}` : ''
+                }`}
+              >
+                {visibleFields.map((field) =>
+                  field.type === 'textarea' ? (
                   <label key={field.key}>
                     {field.label}
                     <textarea
@@ -781,8 +841,9 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
                     />
                   </label>
                 ),
-              )}
-            </div>
+                )}
+              </div>
+            </>
           )
         )}
         {isAi && (
@@ -798,7 +859,7 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
           </div>
         )}
         {submissionError && <small className="form-error">{submissionError}</small>}
-        {!canSubmit && (
+        {!canSubmit && (!isMedicationWizard || isLastMedicationStep) && (
           <small className="form-error">
             {isFutureVitals
               ? 'Não é possível registrar sinais vitais no futuro.'
@@ -825,23 +886,42 @@ export function ActionModal({ action, onClose, onSubmit, connection, selectedDat
           <button className="cancel-btn" disabled={submitting} onClick={close}>
             Cancelar
           </button>
-          <button
-            className={isConfirm ? 'danger-btn' : 'primary-btn'}
-            disabled={!canSubmit || submitting}
-            onClick={() => submit({ ...action, data: submitFormData() })}
-          >
-            {submitting
-              ? 'Salvando...'
-              : isConfirm
-                ? 'Confirmar'
-                : isAi
-                  ? 'Enviar para análise'
-                  : isContraceptiveSetup
-                    ? 'Salvar anticoncepcional'
-                    : action.method === 'PATCH'
-                      ? 'Salvar alterações'
-                      : 'Salvar registro'}
-          </button>
+          {isMedicationWizard && medicationStepIndex > 0 && (
+            <button
+              className="cancel-btn"
+              disabled={submitting}
+              onClick={() => moveMedicationStep(medicationStepIndex - 1)}
+            >
+              Voltar
+            </button>
+          )}
+          {isMedicationWizard && !isLastMedicationStep ? (
+            <button
+              className="primary-btn"
+              disabled={submitting}
+              onClick={() => moveMedicationStep(medicationStepIndex + 1)}
+            >
+              Próximo
+            </button>
+          ) : (
+            <button
+              className={isConfirm ? 'danger-btn' : 'primary-btn'}
+              disabled={!canSubmit || submitting}
+              onClick={() => submit({ ...action, data: submitFormData() })}
+            >
+              {submitting
+                ? 'Salvando...'
+                : isConfirm
+                  ? 'Confirmar'
+                  : isAi
+                    ? 'Enviar para análise'
+                    : isContraceptiveSetup
+                      ? 'Salvar anticoncepcional'
+                      : action.method === 'PATCH'
+                        ? 'Salvar alterações'
+                        : 'Salvar registro'}
+            </button>
+          )}
         </div>
         <small className="sync-note">
           {connection === 'guest'

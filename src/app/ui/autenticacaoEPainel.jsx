@@ -16,6 +16,8 @@ import { clearSecureStorage, flushSecureStorage, secureStorage } from '../../ser
 import { medications, guestCollections } from './dadosAplicacao'
 import { Icon, Brand, EmptyState, recordOccursOnDate } from './interfaceCompartilhada'
 import { CalendarCard } from './modulosCalendario'
+import { DemoAccessButton, DemoCredentials } from './authDemo'
+import { demoCredentials } from '../../services/api/demoData'
 
 export function ConnectionBadge({ status }) {
   const label =
@@ -114,6 +116,12 @@ export function AuthPage({ view, onViewChange, onSubmit, onGuestLogin, loading, 
             <button className="primary-btn auth-main-button" onClick={() => onViewChange('login')}>
               Entrar na minha conta <Icon name="arrow" size={16} />
             </button>
+            <DemoAccessButton
+              onClick={() => {
+                setForm({ ...form, email: demoCredentials.email, password: demoCredentials.password })
+                onViewChange('login')
+              }}
+            />
             <button className="outline-btn auth-secondary-button" onClick={() => onViewChange('register')}>
               Criar minha conta
             </button>
@@ -144,6 +152,7 @@ export function AuthPage({ view, onViewChange, onSubmit, onGuestLogin, loading, 
               ? 'Crie seu acesso para começar seu espaço de cuidado.'
               : 'Acesse seus perfis e registros de saúde.'}
           </p>
+          {!isRegister && <DemoCredentials onFill={() => setForm({ ...form, email: demoCredentials.email, password: demoCredentials.password })} />}
           <form onSubmit={submit}>
             {isRegister && (
               <label>

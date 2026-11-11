@@ -33,7 +33,6 @@ import {
   profileThemeOptions,
   getProfileTheme,
   iconAssets,
-  getDueLocalReminders,
   getAlarmTimestamp,
   getLocalMedicationAlarm,
 } from './ui/dadosAplicacao'
@@ -60,8 +59,6 @@ import { ResourcePage, EmptyModulePage, AiSettings, HelpPage } from './ui/recurs
 import {
   SettingsPage,
   BackupPage,
-  SymptomForm,
-  SymptomModal,
   DependentModal,
   DependentHealthStep,
   ProfileColorModal,
@@ -263,7 +260,7 @@ export function AppShell({ context }) {
           </button>
           <button className="nav-item" onClick={logout}>
             <Icon name="arrow" size={19} />
-            <span>{guestMode ? 'Sair do modo Guest' : 'Sair da conta'}</span>
+            <span>{guestMode ? 'Sair do modo Guest' : isDemoMode() ? 'Sair da demonstração' : 'Sair da conta'}</span>
           </button>
         </div>
       </aside>
@@ -356,7 +353,7 @@ export function AppShell({ context }) {
                 }}
               >
                 <Icon name="arrow" size={19} />
-                <span>{guestMode ? 'Sair do modo Guest' : 'Sair da conta'}</span>
+                <span>{guestMode ? 'Sair do modo Guest' : isDemoMode() ? 'Sair da demonstração' : 'Sair da conta'}</span>
               </button>
             </div>
           </nav>
@@ -427,9 +424,11 @@ export function AppShell({ context }) {
                       Ative os alarmes em segundo plano nas Configurações para receber avisos com o site fechado.
                     </button>
                   )}
-                  {guestMode && (
+                  {(guestMode || isDemoMode()) && (
                     <p className="notification-local-note">
-                      No modo Guest, os avisos só funcionam enquanto o site estiver aberto.
+                      {isDemoMode()
+                        ? 'Na demonstração, ative notificações locais em Configurações. Os avisos só funcionam com o app aberto.'
+                        : 'No modo Guest, os avisos só funcionam enquanto o site estiver aberto.'}
                     </p>
                   )}
                   {notificationLoading && <p className="notification-state">Atualizando alarmes…</p>}
@@ -570,7 +569,7 @@ export function AppShell({ context }) {
                         logout()
                       }}
                     >
-                      <Icon name="arrow" size={14} /> Sair da conta
+                      <Icon name="arrow" size={14} /> {isDemoMode() ? 'Sair da demonstração' : 'Sair da conta'}
                     </button>
                   </div>
                 )}
@@ -594,7 +593,11 @@ export function AppShell({ context }) {
               <section className="welcome-row">
                 <div>
                   <p className="eyebrow">
-                    {guestMode ? 'MODO GUEST · DADOS NESTE DISPOSITIVO' : 'SEU ESPAÇO DE SAÚDE'}
+                    {guestMode
+                      ? 'MODO GUEST · DADOS NESTE DISPOSITIVO'
+                      : isDemoMode()
+                        ? 'DEMONSTRAÇÃO · DADOS FICTÍCIOS'
+                        : 'SEU ESPAÇO DE SAÚDE'}
                   </p>
                   <h1>
                     Olá{activeProfile?.name ? ` ${activeProfile.name}` : ''} <span>✦</span>
@@ -602,7 +605,9 @@ export function AppShell({ context }) {
                   <p className="welcome-copy">
                     {guestMode
                       ? 'Comece registrando suas informações. Elas ficam salvas neste navegador.'
-                      : 'Seu espaço está pronto. Comece adicionando sua primeira informação.'}
+                      : isDemoMode()
+                        ? 'Explore os recursos e alterne entre Ana e Lucas no seletor de perfil.'
+                        : 'Seu espaço está pronto. Comece adicionando sua primeira informação.'}
                   </p>
                 </div>
                 <div className="quick-add-wrap">
@@ -699,6 +704,7 @@ export function AppShell({ context }) {
               onClearLocalData={clearLocalData}
               onSyncBackup={syncBackup}
               isGuest={guestMode}
+              isDemo={isDemoMode()}
               onRegister={() => setAuthView('register')}
               backupBusy={backupBusy}
               backupStatus={backupStatus}

@@ -40,12 +40,14 @@ export function SettingsPage({
   aiSettings,
   onSaveAiSettings,
   isGuest = false,
+  isDemo = false,
   onRegister,
   backupBusy = false,
   backupStatus = '',
 }) {
   const [tab, setTab] = useState('general')
   const [colorOpen, setColorOpen] = useState(false)
+  const localReminderMode = isGuest || isDemo || !pushConfigured || !pushEnabled
   const tabs = [
     ['general', 'Preferências gerais'],
     ...(!isGuest ? [['ai', 'Inteligência artificial']] : []),
@@ -97,6 +99,29 @@ export function SettingsPage({
               </div>
               {toggle('Alternar notificações de medicamentos', notificationsEnabled, onToggleNotifications)}
             </div>
+            {notificationPermission !== 'granted' && (
+              <div className="notification-permission-notice" role="status" aria-live="polite">
+                <strong>
+                  {notificationPermission === 'default'
+                    ? 'Autorize as notificações'
+                    : notificationPermission === 'denied'
+                      ? 'Notificações bloqueadas'
+                      : 'Notificações indisponíveis'}
+                </strong>
+                <span>
+                  {notificationPermission === 'default'
+                    ? 'Permita que o navegador mostre os lembretes do Katu’I neste dispositivo.'
+                    : notificationPermission === 'denied'
+                      ? 'A permissão foi negada. Libere as notificações deste site nas configurações do navegador.'
+                      : 'Este navegador não oferece suporte a notificações.'}
+                </span>
+                {notificationPermission === 'default' && (
+                  <button className="soft-btn" onClick={onEnableLocalNotifications}>
+                    Autorizar notificações
+                  </button>
+                )}
+              </div>
+            )}
             <div className="setting-row">
               <div>
                 <strong>Resumo semanal</strong>
@@ -146,22 +171,24 @@ export function SettingsPage({
         {tab === 'general' && (
           <div className="setting-row">
             <div>
-              <strong>{isGuest ? 'Lembretes locais' : 'Alarmes em segundo plano'}</strong>
+              <strong>{localReminderMode ? 'Lembretes locais' : 'Alarmes em segundo plano'}</strong>
               <span>
-                {isGuest
-                  ? 'Os alarmes Guest só avisam enquanto o Katu’I estiver aberto neste dispositivo.'
+                {localReminderMode
+                  ? `Os alarmes ${isGuest ? 'Guest' : isDemo ? 'da demonstração' : 'deste perfil'} avisam neste dispositivo enquanto o Katu’I estiver aberto.`
                   : pushConfigured
                     ? 'Receba lembretes de medicamentos mesmo quando o site estiver fechado.'
                     : 'O serviço de notificações do servidor ainda precisa ser configurado.'}
               </span>
             </div>
-            {isGuest ? (
+            {localReminderMode ? (
               notificationPermission === 'granted' ? (
                 <span className="security-status">Permissão ativa · com o app aberto</span>
+              ) : notificationPermission === 'default' ? (
+                <span className="security-status">Autorização pendente</span>
               ) : (
-                <button className="soft-btn" onClick={onEnableLocalNotifications}>
-                  Ativar neste dispositivo
-                </button>
+                <span className="security-status">
+                  {notificationPermission === 'unsupported' ? 'Notificações indisponíveis neste navegador.' : 'Permita notificações nas configurações do navegador.'}
+                </span>
               )
             ) : pushConfigured ? (
               toggle('Alternar alarmes em segundo plano', pushEnabled, onTogglePush)
@@ -353,246 +380,6 @@ export function BackupPage({ onExportBackup, onImportBackup, onSyncBackup, backu
         </p>
       )}
     </section>
-  )
-}
-
-export function SymptomForm({ form, setForm }) {
-  const set = (key, value) => setForm({ ...form, [key]: value })
-  const physicalLocations = [
-    ['Geral', 'pulse'],
-    ['Cabeça', 'profile'],
-    ['Costas', 'pulse'],
-    ['Peito', 'heart'],
-    ['Estômago', 'heart'],
-    ['Braços', 'pulse'],
-    ['Pernas', 'pulse'],
-  ]
-  const moodOptions = {
-    Positivo: [
-      ['Alegre', 'sun'],
-      ['Calmo', 'spark'],
-      ['Motivado', 'bolt'],
-      ['Produtivo', 'spark'],
-      ['Grato', 'heart'],
-      ['Energizado', 'bolt'],
-      ['Eufórico', 'spark'],
-    ],
-    Neutro: [
-      ['Normal', 'check'],
-      ['Pensativo', 'spark'],
-      ['Cansado', 'battery'],
-      ['Apático', 'pulse'],
-    ],
-    Baixo: [
-      ['Triste', 'cloud'],
-      ['Desanimado', 'battery'],
-      ['Solitário', 'profile'],
-      ['Sensível', 'cloud'],
-      ['Sem energia', 'battery'],
-      ['Depressivo', 'sad'],
-    ],
-    Tenso: [
-      ['Ansioso', 'cloud'],
-      ['Irritado', 'bolt'],
-      ['Estressado', 'cloud'],
-      ['Agitado', 'spark'],
-      ['Sob pressão', 'pulse'],
-      ['Confuso', 'brain'],
-    ],
-  }
-  const input = (key, label, placeholder, icon) => (
-    <label className="symptom-field">
-      {icon && <Icon name={icon} size={15} />}
-      <span>{label}</span>
-      <input
-        value={form[key] || ''}
-        onChange={(event) => set(key, event.target.value)}
-        placeholder={placeholder || ''}
-      />
-    </label>
-  )
-  return (
-    <div className="symptom-form">
-      <div className="symptom-kind-tabs">
-        <button
-          className={form.symptomKind === 'FISICO' ? 'selected' : ''}
-          onClick={() => set('symptomKind', 'FISICO')}
-        >
-          <Icon name="pulse" size={16} /> Físico
-        </button>
-        <button
-          className={form.symptomKind === 'PSICOLOGICO' ? 'selected' : ''}
-          onClick={() => set('symptomKind', 'PSICOLOGICO')}
-        >
-          <Icon name="heart" size={16} /> Humor
-        </button>
-      </div>
-      {form.symptomKind === 'FISICO' ? (
-        <>
-          {input('quality', 'O que você está sentindo?', 'Ex.: Dor de cabeça', 'pulse')}
-          <div className="symptom-section-title">
-            <Icon name="location" size={15} /> Localização
-          </div>
-          <div className="symptom-chip-grid">
-            {physicalLocations.map(([label, icon]) => (
-              <button
-                key={label}
-                className={form.location === label ? 'symptom-chip selected' : 'symptom-chip'}
-                onClick={() => set('location', label)}
-              >
-                <Icon name={icon} size={15} />
-                {label}
-              </button>
-            ))}
-          </div>
-          {input('location', 'Ou digite o local...', 'Ex.: lado esquerdo da cabeça', 'location')}
-          {input('duration', 'Quando começou / quanto dura?', 'Ex.: desde ontem', 'clock')}
-          {input('factors', 'O que piora ou melhora?', 'Opcional', 'search')}
-          {input('impact', 'Como afeta seu dia?', 'Opcional', 'trend')}
-          <label className="symptom-check">
-            <input
-              type="checkbox"
-              checked={Boolean(form.incapacitating)}
-              onChange={(event) => set('incapacitating', event.target.checked)}
-            />{' '}
-            Isso te impede de fazer algo?
-          </label>
-        </>
-      ) : (
-        <>
-          <div className="symptom-section-title">
-            <Icon name="brain" size={15} /> O clima geral
-          </div>
-          <div className="mood-grid">
-            {['Positivo', 'Neutro', 'Baixo', 'Tenso'].map((mood) => (
-              <button
-                key={mood}
-                className={form.climate === mood ? 'selected' : ''}
-                onClick={() => setForm({ ...form, climate: mood, nuances: [] })}
-              >
-                <Icon
-                  name={mood === 'Positivo' ? 'sun' : mood === 'Neutro' ? 'cloud' : mood === 'Baixo' ? 'sad' : 'brain'}
-                  size={17}
-                />
-                {mood}
-              </button>
-            ))}
-          </div>
-          {form.climate && (
-            <>
-              <div className="symptom-section-title">
-                <Icon name="spark" size={15} /> Nuances
-              </div>
-              <div className="symptom-chip-grid">
-                {(moodOptions[form.climate] || []).map(([label, icon]) => {
-                  const selected = (form.nuances || []).includes(label)
-                  return (
-                    <button
-                      key={label}
-                      className={selected ? 'symptom-chip selected' : 'symptom-chip'}
-                      onClick={() =>
-                        set(
-                          'nuances',
-                          selected ? form.nuances.filter((item) => item !== label) : [...(form.nuances || []), label],
-                        )
-                      }
-                    >
-                      <Icon name={icon} size={14} />
-                      {label}
-                    </button>
-                  )
-                })}
-              </div>
-            </>
-          )}
-          {input('factors', 'Gatilhos ou motivos', 'Opcional: por que se sente assim?', 'search')}
-        </>
-      )}
-      <div className="symptom-intensity">
-        <div>
-          <span>{form.symptomKind === 'FISICO' ? 'Intensidade da dor' : 'Força do sentimento'}</span>
-          <strong>
-            {Number(form.intensity || 5) <= 3
-              ? form.symptomKind === 'FISICO'
-                ? 'Leve'
-                : 'Estável'
-              : Number(form.intensity || 5) <= 7
-                ? form.symptomKind === 'FISICO'
-                  ? 'Moderada'
-                  : 'Presente'
-                : form.symptomKind === 'FISICO'
-                  ? 'Intensa'
-                  : 'Muito forte'}
-          </strong>
-        </div>
-        <input
-          type="range"
-          min="1"
-          max="10"
-          value={form.intensity || 5}
-          onChange={(event) => set('intensity', event.target.value)}
-        />
-      </div>
-    </div>
-  )
-}
-
-export function SymptomModal({ action, form, setForm, onClose, onSubmit, connection, canSubmit }) {
-  const save = () =>
-    onSubmit({
-      ...action,
-      data: {
-        ...form,
-        name: form.quality || form.climate,
-        type: form.symptomKind,
-        quality:
-          form.symptomKind === 'PSICOLOGICO' ? `[${form.climate}] ${(form.nuances || []).join(', ')}` : form.quality,
-      },
-    })
-  return (
-    <div className="modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <div className="modal-card symptom-modal">
-        <button className="modal-close" onClick={onClose}>
-          ×
-        </button>
-        <div className="modal-icon">
-          <Icon name={form.symptomKind === 'FISICO' ? 'pulse' : 'brain'} size={22} />
-        </div>
-        <h2>{action.title}</h2>
-        <p className="modal-subtitle">
-          Escolha entre um sintoma físico ou como você está se sentindo e preencha os detalhes do registro.
-        </p>
-        <label className="symptom-date-field">
-          Data do registro
-          <input
-            type="date"
-            value={form.date || ''}
-            onChange={(event) => setForm({ ...form, date: event.target.value })}
-          />
-        </label>
-        <SymptomForm form={form} setForm={setForm} />
-        {!canSubmit && (
-          <small className="form-error">
-            {form.symptomKind === 'FISICO'
-              ? 'Informe o que você está sentindo.'
-              : 'Escolha o clima geral do seu humor.'}
-          </small>
-        )}
-        <div className="modal-actions">
-          <button className="cancel-btn" onClick={onClose}>
-            Cancelar
-          </button>
-          <button className="primary-btn" disabled={!canSubmit} onClick={save}>
-            Registrar
-          </button>
-        </div>
-        <small className="sync-note">
-          {connection === 'online'
-            ? 'Será sincronizado com o servidor.'
-            : 'Salvo localmente e sincronizado quando o servidor conectar.'}
-        </small>
-      </div>
-    </div>
   )
 }
 

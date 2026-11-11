@@ -133,6 +133,10 @@ Se a pessoa configurar alarmes para um medicamento nessa revisão, o objeto envi
 
 `POST /reports` cria um relatório e `GET /reports/:id/download` retorna o PDF. O frontend aceita resposta `application/pdf` como `Blob`.
 
+Na tela Documentos, o relatório para consulta médica é montado no navegador a partir das coleções selecionadas e pode ser impresso ou salvo como PDF. Sinais vitais são agrupados por tipo e incluem gráficos apenas dos valores registrados; sintomas são agrupados por frequência com as datas dos registros. O resumo de medicamentos mostra tratamentos registrados com vigência nos últimos 30 dias e medicamentos contínuos ativos; o app ainda não registra a tomada de cada dose de medicamentos comuns, portanto não afirma que esses medicamentos foram ingeridos.
+
+Quando exames são selecionados, o frontend pode reunir os anexos PDF, JPG e PNG em um único PDF no navegador. Arquivos remotos são baixados pelo `downloadUrl` autorizado retornado na listagem; nenhum arquivo é enviado para gerar esse documento. O fluxo de relatório e a união dos exames não enviam dados para `POST /reports`.
+
 ## Configuração de produção
 
 O build de produção exige `VITE_API_URL` configurada no ambiente antes de `npm run build`, por exemplo `https://api.exemplo.com/api`. O padrão `http://localhost:3000/api` é usado somente no modo de desenvolvimento; não deve ser deixado como URL de produção. O servidor precisa implementar as rotas necessárias às funcionalidades ativadas, autenticar cada chamada e validar propriedade/permissão do perfil no servidor (não confiar apenas em `X-Profile-Id`).

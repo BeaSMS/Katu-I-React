@@ -33,6 +33,8 @@ import {
   recordOccursOnDate,
 } from './interfaceCompartilhada'
 import { CalendarCard } from './modulosCalendario'
+import { getRecordDetailLabel } from './recordDetailLabels'
+import { MedicalReportBuilder } from './medicalReport'
 
 export function ResourcePage({
   active,
@@ -45,6 +47,7 @@ export function ResourcePage({
   calendarLoadError,
   onAction,
   profileId,
+  profile,
   usePushAlarms = false,
 }) {
   const [records, setRecords] = useState([])
@@ -142,6 +145,7 @@ export function ResourcePage({
   }
   return (
     <div className="resource-layout">
+      {resource === 'documents' && <MedicalReportBuilder profile={profile} />}
       <CalendarCard
         selectedDate={selectedDate}
         onDateSelect={onDateSelect}
@@ -239,7 +243,7 @@ export function ResourcePage({
           onMouseDown={(event) => event.target === event.currentTarget && setDetailRecord(null)}
         >
           <section
-            className="modal-card record-detail-modal"
+            className={`modal-card record-detail-modal${resource === 'medications' ? ' medication-detail-modal' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="record-detail-title"
@@ -273,7 +277,7 @@ export function ResourcePage({
             <dl>
               {recordDetailEntries(detailRecord).map(([key, value]) => (
                 <div key={key}>
-                  <dt>{key.replaceAll('_', ' ')}</dt>
+                  <dt>{getRecordDetailLabel(key, resource)}</dt>
                   <dd>
                     {Array.isArray(value)
                       ? value.join(', ')

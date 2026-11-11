@@ -367,7 +367,17 @@ export function ModulePage({
           selectedDate={selectedDate}
         />
       ) : active === 'Sinais vitais' ? (
-        <VitalsPage onAction={onAction} profile={profile} selectedDate={selectedDate} />
+        <>
+          <CalendarCard
+            selectedDate={selectedDate}
+            onDateSelect={onDateSelect}
+            records={calendarRecords.filter((record) => record.__calendarResource === 'vitalSigns')}
+            resource="vitalSigns"
+            title="Dias com medições"
+            loadError={calendarLoadError}
+          />
+          <VitalsPage onAction={onAction} profile={profile} selectedDate={selectedDate} />
+        </>
       ) : (
         <ResourcePage
           active={active}
@@ -380,6 +390,7 @@ export function ModulePage({
           calendarLoadError={calendarLoadError}
           onAction={onAction}
           profileId={profile?.id}
+          profile={profile}
           usePushAlarms={active === 'Alarmes' && usePushAlarms}
         />
       )}

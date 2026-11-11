@@ -5,7 +5,7 @@ import { defaultAccessibility, defaultOnboardingForm, defaultProfilePreferences 
 import { localDateKey, readGuestProfile } from './ui/interfaceCompartilhada'
 
 export function useAppState() {
-  const [authView, setAuthView] = useState(() => localStorage.getItem('katui.auth-token') || localStorage.getItem('katui.guest-mode') === 'true' ? 'app' : 'landing')
+  const [authView, setAuthView] = useState(() => localStorage.getItem('katui.auth-token') || localStorage.getItem('katui.guest-mode') === 'true' || localStorage.getItem('katui.demo-mode') === 'true' ? 'app' : 'landing')
   const [authLoading, setAuthLoading] = useState(false)
   const [authError, setAuthError] = useState('')
   const [onboardingError, setOnboardingError] = useState('')

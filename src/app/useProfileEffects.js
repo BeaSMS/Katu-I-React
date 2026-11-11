@@ -2,10 +2,11 @@ import { useEffect } from 'react'
 import { apiRequest, isDemoMode, isGuestMode, resourceApi } from '../services/api'
 import { isPushConfigured, listBackgroundAlarms } from '../services/push'
 import { secureStorage } from '../services/secureStorage'
-import { defaultAccessibility, defaultProfilePreferences, getDueLocalReminders, getAlarmTimestamp, getLocalMedicationAlarm } from './ui/dadosAplicacao'
+import { defaultAccessibility, defaultProfilePreferences, getAlarmTimestamp, getLocalMedicationAlarm } from './ui/dadosAplicacao'
+import { getDueLocalReminders } from '../services/localReminders'
 
 export function useProfileEffects(context) {
-  const { authView, setGlobalActionError, active, setActive, mobileMenuOpen, setMobileMenuOpen, mobileMenuButtonRef, mobileNavigationRef, notificationOpen, setNotificationOpen, setNotificationAlarms, setNotificationLoading, setNotificationError, notificationRefreshKey, notificationRef, darkMode, setDarkMode, profiles, activeProfileId, pushEnabled, setPushEnabled, notificationsEnabled, setNotificationsEnabled, weeklySummaryEnabled, setWeeklySummaryEnabled, accessibility, setAccessibility, guestMode, femaleProfile } = context
+  const { authView, setGlobalActionError, active, setActive, mobileMenuOpen, setMobileMenuOpen, mobileMenuButtonRef, mobileNavigationRef, notificationOpen, setNotificationOpen, setNotificationAlarms, setNotificationLoading, setNotificationError, notificationRefreshKey, notificationRef, darkMode, setDarkMode, profiles, activeProfileId, pushEnabled, setPushEnabled, notificationsEnabled, setNotificationsEnabled, notificationPermission, weeklySummaryEnabled, setWeeklySummaryEnabled, accessibility, setAccessibility, guestMode, femaleProfile } = context
   useEffect(() => {
     setPushEnabled(localStorage.getItem(`katui.push-enabled.${activeProfileId}`) === 'true')
   }, [activeProfileId])
@@ -88,7 +89,7 @@ export function useProfileEffects(context) {
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [mobileMenuOpen])
   useEffect(() => {
-    if (authView !== 'app' || !guestMode || !notificationsEnabled || typeof Notification === 'undefined' || Notification.permission !== 'granted') return undefined
+    if (authView !== 'app' || (pushEnabled && isPushConfigured() && !isDemoMode()) || !notificationsEnabled || typeof Notification === 'undefined' || Notification.permission !== 'granted') return undefined
     let checking = false
     const checkLocalReminders = async () => {
       if (checking) return
@@ -124,7 +125,7 @@ export function useProfileEffects(context) {
     checkLocalReminders()
     const timer = window.setInterval(checkLocalReminders, 15_000)
     return () => window.clearInterval(timer)
-  }, [authView, guestMode, notificationsEnabled, activeProfileId])
+  }, [authView, guestMode, notificationsEnabled, notificationPermission, activeProfileId, pushEnabled])
   useEffect(() => {
     const profile = profiles.find((item) => item.id === activeProfileId)
     if (!profile?.preferences) return

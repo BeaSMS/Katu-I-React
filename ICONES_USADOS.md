@@ -30,11 +30,11 @@ Os 34 SVGs desta tabela estão em `Icons/frontend/svg/`. “Partes” descreve a
 | `medication.svg` | Comprimido e tratamento. | Navegação de Medicamentos, cartões e próximos medicamentos, saúde feminina e ações de tratamento. |
 | `notifications.svg` | Notificação e lembrete. | Indicador de notificações e próximos alarmes; navegação para Alarmes. |
 | `oxygen-saturation.svg` | Bateria/nível, usado para representar saturação. | Opção Saturação no formulário de sinais vitais; nuances relacionadas a cansaço ou energia. |
-| `preferences.svg` | Ajustes de preferências. | Item de configurações na definição de navegação e controles de preferências. |
+| `preferences.svg` | Ajustes de preferências e controles. | Navegação para Configurações e controles de preferências. |
 | `receipt.svg` | Receita ou prescrição. | Navegação para Receitas. |
 | `sad-mood.svg` | Humor triste ou baixo. | Clima e nuances de humor no formulário de sintomas. |
 | `search.svg` | Busca e localização de informação. | Busca da Central de Ajuda e fator que influencia um sintoma. |
-| `settings.svg` | Configurações. | Acesso à tela Configurações e identificação do módulo. |
+| `settings.svg` | Engrenagem de configurações. | Disponível no inventário; a interface web usa `preferences.svg` no lugar deste ícone. |
 | `sunny-weather.svg` | Sol, clima positivo e energia. | Climas e nuances positivas no formulário de humor; seletor de cor de perfil. |
 | `temperature.svg` | Temperatura. | Opção Temperatura no formulário de sinais vitais. |
 | `time.svg` | Hora ou duração. | Dados de horário no calendário e registros de saúde feminina. |
@@ -249,7 +249,7 @@ Os ícones acompanham a cor do texto do item: inativos `#6D827D`; em hover `#176
 | Sua saúde | Perfis e dependentes | `user-profile.svg` (`profile`) | Gerencia pessoas sob cuidado; oculto no modo Guest. | Estado do menu. |
 | Sua saúde | Backup pessoal | `document.svg` (`file`) | Acessa registros e ações de backup; oculto no modo Guest. | Estado do menu. |
 | Rodapé | Ajuda | `help.svg` (`help`) | Abre a central de perguntas frequentes. | Estado do menu. |
-| Rodapé | Configurações | `settings.svg` (`settings`) | Abre preferências, acessibilidade, privacidade e backup. | Estado do menu. |
+| Rodapé | Configurações | `preferences.svg` (`settings`) | Abre preferências, acessibilidade, privacidade e backup. | Estado do menu. |
 | Rodapé | Sair da conta / do modo Guest | `arrow-right.svg` (`arrow`) | Encerra a sessão ou o modo Guest. | Estado do menu. |
 
 ### Web — menu de adição rápida

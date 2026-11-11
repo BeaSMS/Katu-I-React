@@ -1,5 +1,6 @@
 import { apiRequest, clearOfflineQueue, flushOfflineQueue, getOfflineQueueSize, isAiPrescriptionEnabled, isApiConfigured, isDemoMode, isGuestMode, isNetworkError, queueOfflineAction, resourceApi } from '../../services/api'
 import { clearSecureStorage, flushSecureStorage, secureStorage } from '../../services/secureStorage'
+import { createDemoData, demoCredentials } from '../../services/api/demoData'
 import { medications, defaultOnboardingForm, defaultAccessibility, defaultProfilePreferences, guestCollections, emptyGuestData, profileThemeOptions, getProfileTheme, iconAssets, getDueLocalReminders, getAlarmTimestamp, getLocalMedicationAlarm } from '../ui/dadosAplicacao'
 import { Icon, Brand, EmptyState, vitalNumericValue, vitalValueLabel, recordDetailEntries, getAttachmentHref, localDateKey, readGuestProfile, parseDateKey, recordDate, recordOccursOnDate, hasCalendarRecordOnDate, calendarWeekdays, calendarMonths } from '../ui/interfaceCompartilhada'
 
@@ -38,6 +39,40 @@ export function useSessionActions(context) {
   }
   const handleAuth = async (form, mode) => {
     if (mode === 'register' && form.password !== form.passwordConfirmation) throw new Error('As senhas precisam ser iguais.')
+    if (mode === 'login' && form.email.trim().toLowerCase() === demoCredentials.email) {
+      if (form.password !== demoCredentials.password) throw new Error('A senha da demonstração está incorreta.')
+      const demoData = createDemoData()
+      secureStorage.setItem('katui.demo-data', JSON.stringify(demoData))
+      secureStorage.setItem('katui.profiles', JSON.stringify(demoData.profiles))
+      try {
+        await flushSecureStorage()
+      } catch (error) {
+        const message = error.message || 'Não foi possível preparar os dados da demonstração.'
+        setGlobalActionError(message)
+        throw new Error(message)
+      }
+      localStorage.removeItem('katui.guest-mode')
+      localStorage.removeItem('katui.auth-token')
+      localStorage.removeItem('katui.guest-migration-consent')
+      localStorage.removeItem('katui.guest-migration-completed')
+      localStorage.removeItem('katui.guest-migration-profile-id')
+      localStorage.setItem('katui.demo-mode', 'true')
+      localStorage.setItem('katui.auth-email', demoCredentials.email)
+      localStorage.setItem('katui.active-profile-id', demoData.activeProfileId)
+      localStorage.setItem('katui.onboarding-complete', 'true')
+      localStorage.removeItem('katui.onboarding-step')
+      setProfiles(demoData.profiles)
+      setActiveProfileId(demoData.activeProfileId)
+      setAccountLoaded(false)
+      setGuestMigrationPending(false)
+      setOnboardingComplete(true)
+      setOnboardingStep(0)
+      setOnboardingForm(defaultOnboardingForm)
+      setActive('Visão geral')
+      setConnection('demo')
+      setAuthView('app')
+      return
+    }
     const wasGuest = isGuestMode()
     if (wasGuest) localStorage.removeItem('katui.guest-mode')
     let result
@@ -87,6 +122,7 @@ export function useSessionActions(context) {
     localStorage.removeItem('katui.auth-token')
     localStorage.removeItem('katui.demo-mode')
     localStorage.removeItem('katui.guest-mode')
+    localStorage.removeItem('katui.auth-email')
     setAuthView('landing')
     undoStackRef.current = []
     setUndoInfo(null)

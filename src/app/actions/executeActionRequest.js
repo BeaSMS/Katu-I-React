@@ -21,9 +21,11 @@ export async function executeActionRequest(action, context) {
   const localMode = demoMode || guestMode
   const method = action.method || 'POST'
   const backgroundScheduleRequired = !localMode && (
-    (action.endpoint === '/medications' && method === 'POST' && payload.generateAlarms) ||
-    (action.endpoint === '/alarms' && method === 'POST') ||
-    (action.kind === 'prescription-confirm' && payload.medications?.some((medication) => medication.generateAlarms)) ||
+    (pushEnabled && isPushConfigured() && (
+      (action.endpoint === '/medications' && method === 'POST' && payload.generateAlarms) ||
+      (action.endpoint === '/alarms' && method === 'POST') ||
+      (action.kind === 'prescription-confirm' && payload.medications?.some((medication) => medication.generateAlarms))
+    )) ||
     (action.data?.__pushAlarm && method === 'DELETE')
   )
   const medicationScheduleCleanupRequired = !localMode && isPushConfigured() && method === 'DELETE' && /^\/medications\/[^/]+$/.test(action.endpoint)

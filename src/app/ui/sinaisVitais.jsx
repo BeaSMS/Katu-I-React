@@ -116,6 +116,9 @@ export function VitalsPage({ onAction, profile, selectedDate }) {
       })
       .filter(Boolean),
   )
+  const hasEnoughChartData = series.every(
+    (item) => new Set(chartPoints.filter((point) => point.key === item.key).map((point) => point.index)).size >= 2,
+  )
   const allValues = chartPoints.map((point) => point.value)
   const minValue = allValues.length ? Math.min(...allValues) : 0
   const maxValue = allValues.length ? Math.max(...allValues) : 1
@@ -234,7 +237,7 @@ export function VitalsPage({ onAction, profile, selectedDate }) {
           <p className="vital-state form-error" role="alert">
             {loadError}
           </p>
-        ) : chartPoints.length ? (
+        ) : hasEnoughChartData ? (
           <>
             <div className="vital-chart-legend">
               {series.map((item) => (
@@ -264,16 +267,28 @@ export function VitalsPage({ onAction, profile, selectedDate }) {
                 </text>
                 {series.map((item) => {
                   const points = chartPoints.filter((point) => point.key === item.key)
+                  const positionedPoints = points.map(position)
                   return (
                     <g key={item.key}>
-                      {points.map((point, index) => {
-                        const p = position(point)
-                        return (
-                          <circle key={`${point.timestamp}-${index}`} cx={p.x} cy={p.y} r="5" fill={item.color}>
-                            <title>{`${item.label}: ${point.value} ${unit}, ${formatDate(recordDate(point.record))} ${point.record.time || ''}, ${point.record.notes || 'sem observações'}`}</title>
-                          </circle>
-                        )
-                      })}
+                      {positionedPoints.length > 1 && (
+                        <polyline
+                          points={positionedPoints.map((point) => `${point.x},${point.y}`).join(' ')}
+                          fill="none"
+                          stroke={item.color}
+                          strokeWidth="2"
+                        />
+                      )}
+                      {points.map((point, index) => (
+                        <circle
+                          key={`${point.timestamp}-${index}`}
+                          cx={positionedPoints[index].x}
+                          cy={positionedPoints[index].y}
+                          r="5"
+                          fill={item.color}
+                        >
+                          <title>{`${item.label}: ${point.value} ${unit}, ${formatDate(recordDate(point.record))} ${point.record.time || ''}, ${point.record.notes || 'sem observações'}`}</title>
+                        </circle>
+                      ))}
                     </g>
                   )
                 })}
@@ -293,8 +308,12 @@ export function VitalsPage({ onAction, profile, selectedDate }) {
         ) : (
           <EmptyState
             icon="pulse"
-            title="Sem medições neste período"
-            message="Não há dados para desenhar o gráfico. Nenhuma tendência ou valor foi estimado."
+            title={chartPoints.length ? 'Mais medições necessárias' : 'Sem medições neste período'}
+            message={
+              chartPoints.length
+                ? `Registre pelo menos duas medições de ${chartType} neste período para mostrar a evolução.`
+                : 'Não há dados para desenhar o gráfico. Nenhuma tendência ou valor foi estimado.'
+            }
             action="Registrar medição"
             onAction={() => openVital(chartType)}
           />
