@@ -2,17 +2,11 @@ import { buildMedicationSchedule } from './alarmSchedule'
 
 const PUSH_API_URL = import.meta.env.VITE_PUSH_API_URL || ''
 
-export function isDesktopShell() {
-  if (typeof window === 'undefined') return false
-  return window.location.protocol === 'file:' || new URLSearchParams(window.location.search).get('desktop') === '1'
-}
-
 export function isPushConfigured() {
-  return Boolean(PUSH_API_URL) && !isDesktopShell()
+  return Boolean(PUSH_API_URL)
 }
 
 async function pushRequest(path, { token, profileId, method = 'GET', body } = {}) {
-  if (isDesktopShell()) throw new Error('Notificações push em segundo plano estão disponíveis somente na versão web.')
   if (!PUSH_API_URL) throw new Error('O serviço de notificações em segundo plano não está configurado.')
   if (!token) throw new Error('Entre em uma conta para ativar notificações em segundo plano.')
   const response = await fetch(`${PUSH_API_URL.replace(/\/$/, '')}${path}`, {

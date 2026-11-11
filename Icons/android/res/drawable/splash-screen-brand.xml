@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Splash screen icon (Android 12+).
+    Área total do sistema: 108dp × 108dp.
+    Área segura (nunca cortada): círculo central de 72dp → insets de 18dp cada lado.
+    Usamos <scale> para forçar o PNG a preencher exatamente a área segura,
+    independente do tamanho intrínseco do arquivo.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:left="18dp"
+        android:top="18dp"
+        android:right="18dp"
+        android:bottom="18dp">
+        <scale
+            android:drawable="@drawable/launcher-foreground"
+            android:scaleGravity="center"
+            android:scaleHeight="100%"
+            android:scaleWidth="100%" />
+    </item>
+</layer-list>

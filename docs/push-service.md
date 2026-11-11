@@ -2,7 +2,7 @@
 
 O serviço em `server/push-server.js` é um backend complementar, separado da interface Vite e da **API principal**. Ele é necessário para Web Push em segundo plano na versão web, mas não substitui a API principal de contas e dados. Durante desenvolvimento, inicie também a API principal (padrão `http://localhost:3000/api`); o serviço Push consulta `/me` nessa API para validar cada token e perfil. Em produção, ambos os serviços precisam estar implantados e acessíveis.
 
-O processo Push precisa continuar ativo para verificar e enviar os alarmes. É um serviço de uma instância: seu armazenamento JSON local não coordena múltiplas réplicas. O Electron desativa Web Push e não precisa deste serviço; nele, lembretes locais só funcionam enquanto o app estiver aberto.
+O processo Push precisa continuar ativo para verificar e enviar os alarmes. É um serviço de uma instância: seu armazenamento JSON local não coordena múltiplas réplicas.
 
 ## Variáveis de ambiente
 
@@ -40,7 +40,7 @@ Todas as rotas, exceto `GET /vapid-public-key`, exigem `Authorization: Bearer <t
 
 `POST /medication-schedules` recebe os campos de agenda, incluindo `medicationId`, `medicationName`, `startAt` (ISO), `localDate`, `localTime`, `timeZone`, `intervalMinutes` e `durationDays` (nulo para uso contínuo). `POST /alarms` recebe `sourceId`, `startAt`, fuso/data/hora local, e opcionalmente `intervalMinutes`, `durationDays`, `oneTime` e texto de exibição genérico. Alarmes pontuais precisam estar no futuro.
 
-O navegador envia sua origem e o serviço só permite origens presentes em `CORS_ALLOWED_ORIGINS`. A versão Electron não chama essas rotas. A chave VAPID privada e o arquivo JSON de agendamentos devem permanecer apenas no servidor.
+O navegador envia sua origem e o serviço só permite origens presentes em `CORS_ALLOWED_ORIGINS`. A chave VAPID privada e o arquivo JSON de agendamentos devem permanecer apenas no servidor.
 
 ## Agendamento e entrega
 

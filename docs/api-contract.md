@@ -2,13 +2,11 @@
 
 ## Arquitetura e dependências
 
-Este documento descreve a **API principal** de contas e dados, configurada pela variável `VITE_API_URL`. Essa API é um serviço separado: não está implementada neste repositório e precisa estar rodando localmente durante o desenvolvimento (padrão `http://localhost:3000/api`) ou implantada e acessível em produção. A versão Electron também depende dela para login e sincronização.
+Este documento descreve a **API principal** de contas e dados, configurada pela variável `VITE_API_URL`. Essa API é um serviço separado: não está implementada neste repositório e precisa estar rodando localmente durante o desenvolvimento (padrão `http://localhost:3000/api`) ou implantada e acessível em produção.
 
-O projeto inclui outro processo Node, `server/push-server.js`, destinado somente ao Web Push da versão web. Ele é complementar, valida tokens chamando `${AUTH_API_URL}/me` na API principal e tem contrato separado em [`push-service.md`](./push-service.md). O Electron não chama esse serviço.
+O projeto inclui outro processo Node, `server/push-server.js`, destinado ao Web Push. Ele é complementar, valida tokens chamando `${AUTH_API_URL}/me` na API principal e tem contrato separado em [`push-service.md`](./push-service.md).
 
-O frontend usa `VITE_API_URL` como base e acrescenta os caminhos deste contrato. Ele envia o token salvo em `katui.auth-token` no header `Authorization: Bearer <token>` e, quando aplicável, o perfil selecionado em `X-Profile-Id`. Como as variáveis `VITE_*` são incorporadas no bundle durante o build, configure a URL antes de criar o build web ou instalador desktop.
-
-No Electron empacotado, o renderer é carregado por `file://`. Isso pode apresentar ao servidor uma origem opaca (`null`), diferente da origem web. A API e sua política CORS/autenticação precisam suportar o mecanismo desktop usado; não abra CORS globalmente para `null` como solução improvisada. Teste chamadas reais de login e dados no pacote final.
+O frontend usa `VITE_API_URL` como base e acrescenta os caminhos deste contrato. Ele envia o token salvo em `katui.auth-token` no header `Authorization: Bearer <token>` e, quando aplicável, o perfil selecionado em `X-Profile-Id`. Como as variáveis `VITE_*` são incorporadas no bundle durante o build, configure a URL antes de criar o build web.
 
 ## Convenções
 
@@ -61,11 +59,16 @@ Rotas especiais adicionais:
 | Método | Endpoint | Observação |
 |---|---|---|
 | POST | `/profiles/me` | Cria o perfil principal durante o onboarding |
-| PATCH | `/profiles/:id/ai-settings` | Atualiza configuração de IA daquele perfil |
-| POST | `/ai/prescription` | Leitura de receita por IA (`multipart/form-data`, campo `file`) |
-| POST | `/prescriptions/:id/confirm` | Confirma as sugestões revisadas e pode criar medicamentos |
+| PATCH | `/profiles/:id/ai-configuracoes` | Atualiza configuração de IA daquele perfil |
+| POST | `/ai/prescription` | Leitura de receita por IA (`multipart/form-data`, campo `file` para novo envio ou `prescriptionId` para usar um anexo já salvo) |
+| POST | `/prescriptions` | Cadastra receita como JSON ou `multipart/form-data` quando há anexo opcional (PDF, JPG ou PNG, até 15 MB) |
+| POST | `/prescriptions/:id/confirm` | Confirma sugestões revisadas para a receita `:id` e cria os medicamentos selecionados; recebe `analysisId` e `medications` |
+| POST | `/exams` | Cadastra exame como `multipart/form-data`; campo `file` obrigatório (PDF, JPG ou PNG, até 15 MB), além dos campos do registro |
+| POST | `/documents` | Cadastra documento como JSON quando sem arquivo ou `multipart/form-data` quando há anexo opcional (PDF, JPG ou PNG, até 15 MB) |
 | GET | `/reports/:id/download` | Retorna PDF (`application/pdf`) |
 | POST | `/backup` | Solicita sincronização/backup pessoal; exige conta |
+
+Quando houver arquivo, as respostas de `/exams`, `/documents` e `/prescriptions` devem incluir `attachment` com `name`, `contentType`, `size` e `downloadUrl`. O link deve ser acessível pelo usuário autorizado (por exemplo, uma URL assinada de curta duração). Para a análise por ID, `/ai/prescription` deve buscar o anexo da receita autorizada, sem exigir novo upload, e incluir `prescriptionId` na resposta. A confirmação atualiza a receita existente e cria somente os medicamentos selecionados; a resposta deve incluir os medicamentos criados com `id` e o `clientId` recebido, para que o app possa vincular cada alarme ao medicamento correto. No modo Guest, o app mantém o anexo localmente no armazenamento criptografado. Envios com arquivo que aguardam sincronização ficam na fila offline criptografada.
 
 `/backup` não deve ser tratado como uma coleção CRUD neste frontend: a ação atual envia `POST /backup`. A API também pode fornecer `GET /reports` e `POST /reports` para listar/criar relatórios.
 
@@ -83,9 +86,9 @@ O backend deve processar `Idempotency-Key` de forma idempotente, usar HTTPS, aut
 
 O tutorial inicial envia o perfil principal para `POST /profiles/me` com os campos `name`, `age`, `sex`, `weight`, `heightCm`, `allergies`, `specialConditions` e `aiEnabled`. O backend deve aceitar `Idempotency-Key` também nessa criação, pois ela pode ser repetida após um timeout. Se o perfil for criado offline, o frontend troca o ID temporário pelo ID retornado ao sincronizar e atualiza as ações pendentes que dependem dele.
 
-A preferência de IA é por perfil. `PATCH /profiles/:id/ai-settings` recebe `provider` (`system`, `openai`, `google` ou `anthropic`), `model` opcional e `apiKey` somente quando a pessoa escolher um provedor próprio. O frontend não persiste a chave no navegador nem a coloca na fila offline; o backend deve armazená-la em um cofre/secret manager, criptografada e associada ao usuário. Para `provider: system`, o backend usa a chave padrão configurada no servidor.
+A preferência de IA é por perfil. `PATCH /profiles/:id/ai-configuracoes` recebe `provider` (`system`, `openai`, `google` ou `anthropic`), `model` opcional e `apiKey` somente quando a pessoa escolher um provedor próprio. O frontend não persiste a chave no navegador nem a coloca na fila offline; o backend deve armazená-la em um cofre/secret manager, criptografada e associada ao usuário. Para `provider: system`, o backend usa a chave padrão configurada no servidor.
 
-O cadastro de dependentes usa `POST /profiles` com `name`, `relation`, `age`, `sex`, `weight`, `heightCm`, `allergies`, `specialConditions`, `themeColor`, `corHex` e `preferences`. A preferência de cor de um perfil existente usa `PATCH /profiles/:id` com `themeColor` e `corHex`. `themeColor` identifica uma opção da paleta (`turquoise`, `gold`, `sky`, `purple`, `rose` ou `green`) e `corHex` mantém a cor derivada para compatibilidade com o APK original. `preferences` deve ser armazenado por perfil e contém `darkMode`, `notificationsEnabled`, `weeklySummaryEnabled` e `accessibility`.
+O cadastro de dependentes usa `POST /profiles` com `name`, `relation`, `age`, `sex`, `weight`, `heightCm`, `allergies`, `specialConditions`, `themeColor`, `corHex` e `preferences`. Alterações em dependentes e preferências do perfil usam `PATCH /profiles/:id`; o payload de preferências contém `preferences` com `darkMode`, `notificationsEnabled`, `weeklySummaryEnabled` e `accessibility`. A preferência de cor também usa essa rota com `themeColor` e `corHex`. `themeColor` identifica uma opção da paleta (`turquoise`, `gold`, `sky`, `purple`, `rose` ou `green`) e `corHex` mantém a cor derivada para compatibilidade com o APK original. As preferências são armazenadas localmente e sincronizadas com a conta, inclusive pela fila offline.
 
 ## Dados dos formulários
 
@@ -121,6 +124,8 @@ Os cadastros enviam também `profileId` e `date` (a data escolhida no calendári
 ```
 
 O frontend não deve salvar automaticamente as sugestões da IA: a tela de revisão permite selecionar as sugestões e a confirmação da pessoa usuária chama `POST /prescriptions/:id/confirm` com `{ "medications": [...] }`. A leitura da receita exige conexão e seu arquivo não é colocado na fila offline.
+
+O botão de leitura assistida só é exibido quando o build define `VITE_AI_PRESCRIPTION_ENABLED=true`; em modo de demonstração ele apresenta uma resposta fictícia identificada como demonstração. Sem essa configuração, o cadastro manual de receitas continua disponível.
 
 Se a pessoa configurar alarmes para um medicamento nessa revisão, o objeto enviado também inclui `date`, `time`, `frequencyType`, `frequencyValue`, `continuous`, `durationDays`, `generateAlarms` e `clientId`. O endpoint de confirmação deve devolver os medicamentos efetivamente criados em `medications` (ou `createdMedications`), preservando `clientId` e incluindo o ID canônico e os mesmos campos de posologia. O frontend usa essa resposta para vincular os horários ao registro correto; não interpreta texto livre da receita como instrução médica.
 

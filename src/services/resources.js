@@ -2,43 +2,46 @@
 // possa ser implementada sem acoplar os componentes à URL do servidor.
 export const resourceConfig = {
   overview: { endpoint: '/overview', label: 'Visão geral' },
-  medications: { endpoint: '/medications', label: 'Medicamentos' },
-  alarms: { endpoint: '/alarms', label: 'Alarmes' },
-  prescriptions: { endpoint: '/prescriptions', label: 'Receitas' },
-  vitalSigns: { endpoint: '/vital-signs', label: 'Sinais vitais' },
-  symptoms: { endpoint: '/symptoms', label: 'Diário de sintomas' },
-  feminineHealth: { endpoint: '/feminine-health', label: 'Saúde feminina' },
-  pregnancy: { endpoint: '/pregnancy', label: 'Gestação' },
-  appointments: { endpoint: '/appointments', label: 'Consultas' },
-  vaccines: { endpoint: '/vaccines', label: 'Carteira de vacinação' },
-  exams: { endpoint: '/exams', label: 'Exames' },
-  documents: { endpoint: '/documents', label: 'Documentos' },
-  reports: { endpoint: '/reports', label: 'Relatórios PDF' },
-  profiles: { endpoint: '/profiles', label: 'Perfis e dependentes' },
-  backup: { endpoint: '/backup', label: 'Backup pessoal' },
+  medications: { endpoint: '/medications', label: 'Medicamentos', resource: 'medications' },
+  alarms: { endpoint: '/alarms', label: 'Alarmes', resource: 'alarms' },
+  prescriptions: { endpoint: '/prescriptions', label: 'Receitas', resource: 'prescriptions' },
+  vitalSigns: { endpoint: '/vital-signs', label: 'Sinais vitais', resource: 'vitalSigns' },
+  symptoms: { endpoint: '/symptoms', label: 'Diário de sintomas', resource: 'symptoms' },
+  feminineHealth: { endpoint: '/feminine-health', label: 'Saúde feminina', resource: 'feminineHealth' },
+  pregnancy: { endpoint: '/pregnancy', label: 'Gestação', resource: 'pregnancy' },
+  appointments: { endpoint: '/appointments', label: 'Consultas', resource: 'appointments' },
+  vaccines: { endpoint: '/vaccines', label: 'Carteira de vacinação', resource: 'vaccines' },
+  exams: { endpoint: '/exams', label: 'Exames', resource: 'exams' },
+  documents: { endpoint: '/documents', label: 'Documentos', resource: 'documents' },
+  reports: { endpoint: '/reports', label: 'Relatórios PDF', resource: 'reports' },
+  profiles: { endpoint: '/profiles', label: 'Perfis e dependentes', resource: 'profiles' },
+  backup: { endpoint: '/backup', label: 'Backup pessoal', resource: 'backup' },
+  settings: { endpoint: '/settings', label: 'Configurações', resource: 'settings' },
+  help: { endpoint: '/help', label: 'Ajuda', resource: 'help' },
 }
 
 export const moduleNavigation = [
   { label: 'Visão geral', icon: 'grid', resource: 'overview' },
   { label: 'Medicamentos', icon: 'pill', resource: 'medications' },
   { label: 'Alarmes', icon: 'bell', resource: 'alarms' },
-  { label: 'Receitas', icon: 'file', resource: 'prescriptions' },
-  { label: 'Diário de sintomas', icon: 'pulse', resource: 'symptoms' },
+  { label: 'Receitas', icon: 'receipt', resource: 'prescriptions' },
+  { label: 'Diário de sintomas', icon: 'journal', resource: 'symptoms' },
   { label: 'Sinais vitais', icon: 'pulse', resource: 'vitalSigns' },
   { label: 'Consultas', icon: 'calendar', resource: 'appointments' },
   { label: 'Exames', icon: 'file', resource: 'exams' },
 ]
 
 export const supportNavigation = [
-  { label: 'Documentos', icon: 'file', resource: 'documents' },
+  { label: 'Documentos', icon: 'folder', resource: 'documents' },
   { label: 'Saúde feminina', icon: 'calendar', resource: 'feminineHealth' },
-  { label: 'Carteira de vacinação', icon: 'file', resource: 'vaccines' },
+  { label: 'Carteira de vacinação', icon: 'vaccination', resource: 'vaccines' },
   { label: 'Perfis e dependentes', icon: 'profile', resource: 'profiles' },
   { label: 'Backup pessoal', icon: 'file', resource: 'backup' },
 ]
 
 export const settingsNavigation = [
-  { label: 'Configurações', icon: 'sliders', resource: 'backup' },
+  { label: 'Configurações', icon: 'settings', resource: 'settings' },
+  { label: 'Ajuda', icon: 'help', resource: 'help' },
 ]
 
 export function getResourceForLabel(label) {

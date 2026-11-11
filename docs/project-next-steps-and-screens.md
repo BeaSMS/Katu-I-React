@@ -9,7 +9,6 @@ Este documento ajuda novas colaboradoras a entender o estado conhecido do projet
 - [ ] **Localizar e documentar a API principal.** Adicionar o repositório/caminho oficial, responsável, instruções para instalação e inicialização, variáveis de ambiente e endereço de desenvolvimento. O frontend atual assume `http://localhost:3000/api`, mas este repositório não inicia essa API.
 - [ ] **Conferir o contrato frontend ↔ API.** Verificar cada rota, método, payload, formato de resposta, autenticação, perfil selecionado, erros e `Idempotency-Key` contra a implementação real; atualizar `docs/api-contract.md` com divergências decididas.
 - [ ] **Fornecer um caminho seguro para testes.** Definir como obter credenciais e dados de desenvolvimento (contas sem dados reais, seed/fábrica de dados ou ambiente compartilhado protegido). Nunca adicionar credenciais, tokens ou dados pessoais reais ao repositório.
-- [ ] **Validar o Electron com API real.** Testar login, `/me`, onboarding, leitura/escrita de registros, armazenamento local e logout no instalador. O Electron empacotado carrega a interface via `file://`; definir uma estratégia de origem/CORS segura em vez de liberar `Origin: null` globalmente.
 
 ### Prioridade 1 — Confiabilidade e privacidade
 
@@ -21,7 +20,6 @@ Este documento ajuda novas colaboradoras a entender o estado conhecido do projet
 
 ### Prioridade 2 — Produto e manutenção
 
-- [ ] **Definir suporte e distribuição desktop.** Escolher versões de Windows/macOS/Linux suportadas, assinatura/notarização, canal e política de atualização, requisitos de rede e processo de reporte de falhas.
 - [ ] **Manter uma lista priorizada de issues.** Cada tarefa deve ter responsável, critérios de aceite, telas/rotas afetadas e dependências; separar defeitos, dívida técnica e funcionalidades futuras.
 - [ ] **Atribuir revisão e fluxo de contribuição.** Definir nomes/papéis de revisores, convenção de branches/commits e requisitos para pull request; substituir no README os passos genéricos pelo processo real do grupo.
 - [ ] **Revisar acessibilidade e UX com pessoas usuárias.** Testar teclado, leitores de tela, escalas de texto, mensagens de erro, estados vazios/carregamento/offline e fluxos de saúde feminina com usuárias diversas.
@@ -86,7 +84,7 @@ As configurações são divididas por abas; em geral são aplicadas ao perfil at
 | Aba | Preferências/dados |
 |---|---|
 | Preferências gerais | `darkMode`, `notificationsEnabled`, `weeklySummaryEnabled`, feedback sonoro local; notificações locais; ativação/desativação de Web Push na versão web. |
-| Inteligência artificial (conta) | `provider` (`system`, `openai`, `google`, `anthropic`), `model`, `apiKey` enviada somente ao salvar. Usa `PATCH /profiles/:id/ai-settings`; a chave não deve ser persistida no navegador ou na fila offline. |
+| Inteligência artificial (conta) | `provider` (`system`, `openai`, `google`, `anthropic`), `model`, `apiKey` enviada somente ao salvar. Usa `PATCH /profiles/:id/ai-configuracoes`; a chave não deve ser persistida no navegador ou na fila offline. |
 | Acessibilidade | `accessibility`, incluindo escala de texto/tamanho ampliado e opções disponíveis na interface. |
 | Privacidade e segurança | Exportar/importar backup local, limpar dados locais e informações de proteção/armazenamento. |
 | Backup pessoal (conta) | `POST /backup` para sincronização manual; exportação local e importação de arquivo de backup. |

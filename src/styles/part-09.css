@@ -1,0 +1,24 @@
+.dark-mode.app-shell .mobile-navigation-footer { border-color:#405a52; }
+.dark-mode.app-shell .record-detail-modal dl div { background:#172522; }
+.dark-mode.app-shell .record-detail-modal dt,.dark-mode.app-shell .record-detail-modal dd,.dark-mode.app-shell .vital-chart-legend,.dark-mode.app-shell .vital-history-copy strong { color:#d7e6e1; }
+.dark-mode.app-shell .vitals-toolbar select,.dark-mode.app-shell .vitals-toolbar input,.dark-mode.app-shell .vital-chart-panel .panel-header select,.dark-mode.app-shell .resource-actions .row-action,.dark-mode.app-shell .vital-history-actions .row-action { border-color:#405b53; background:#20312e; color:#d7e6e1; }
+.dark-mode.app-shell .symptom-date-field,.dark-mode.app-shell .backup-page > p { color:#a9c0b8; }
+.dark-mode.app-shell .symptom-date-field input { border-color:#405b53; background:#20312e; color:#d7e6e1; }
+.dark-mode.app-shell .backup-page .panel-header > .asset-icon { color:#9dd4c4; }
+.dark-mode.app-shell .vital-chart-gridline,.dark-mode.app-shell .vital-history-row { stroke:#405b53; border-color:#405b53; }
+.dark-mode.app-shell .vital-chart-axis,.dark-mode.app-shell .vital-chart-note,.dark-mode.app-shell .vital-state,.dark-mode.app-shell .vital-history-copy span,.dark-mode.app-shell .vital-history-copy small { fill:#a9c0b8; color:#a9c0b8; }
+.app-shell :focus-visible,.auth-page :focus-visible { outline:3px solid #176b62; outline-offset:3px; }
+.app-shell.reduce-motion *, .app-shell.reduce-motion *::before, .app-shell.reduce-motion *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+@media (max-width:760px) {
+  .vitals-toolbar { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .vitals-toolbar label,.vitals-toolbar select,.vitals-toolbar input { min-width:0; width:100%; }
+  .vital-chart-panel .panel-header { align-items:flex-start; flex-direction:column; }
+  .vital-chart-panel .panel-header label,.vital-chart-panel .panel-header select { width:100%; }
+  .vital-history-row { align-items:flex-start; flex-direction:column; }
+  .vital-history-actions { justify-content:flex-start; }
+  .quick-vital-actions { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:480px) {
+  .record-detail-modal dl { grid-template-columns:1fr; }
+  .vital-chart { min-height:150px; }
+}

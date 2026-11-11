@@ -1,0 +1,150 @@
+.dark-mode.app-shell .female-calendar-day.fertile { background:#30463a; color:#c0e2c9; }
+.dark-mode.app-shell .female-next-period { background:#3b3037; }
+.dark-mode.app-shell .female-next-period strong { color:#f0b7d0; }
+.dark-mode.app-shell .female-next-period span,.dark-mode.app-shell .female-open-cycle span,.dark-mode.app-shell .female-fertile-summary span,.dark-mode.app-shell .female-contraceptive-row span,.dark-mode.app-shell .female-contraceptive-row small { color:#bdaeb4; }
+.dark-mode.app-shell .female-open-cycle { background:#443538; }
+.dark-mode.app-shell .female-open-cycle strong { color:#f1bdba; }
+.dark-mode.app-shell .female-fertile-summary { background:#304238; }
+.dark-mode.app-shell .female-fertile-summary strong { color:#baddc2; }
+.dark-mode.app-shell .female-contraceptive-row,.dark-mode.app-shell .female-history-item,.dark-mode.app-shell .female-daily-item { border-color:#40534d; }
+.dark-mode.app-shell .female-dose-status { background:#473a34; color:#e5be9f !important; }
+.dark-mode.app-shell .female-dose-status.taken { background:#2d4938; color:#b4dcbe !important; }
+.dark-mode.app-shell .female-pregnancy-form label,.dark-mode.app-shell .female-pregnancy-active span,.dark-mode.app-shell .female-pregnancy-confirm p { color:#b6d2c4; }
+.dark-mode.app-shell .female-pregnancy-form input { border-color:#40534d; background:#293431; color:#e4d5dc; }
+.high-contrast.app-shell .female-health-intro,.high-contrast.app-shell .female-health-stat,.high-contrast.app-shell .female-cycle-calendar,.high-contrast.app-shell .female-cycle-prediction,.high-contrast.app-shell .female-section-panel,.high-contrast.app-shell .female-pregnancy-panel { border:2px solid #111318; background:#fff; }
+.high-contrast.app-shell .female-health-intro h2,.high-contrast.app-shell .female-panel-heading h3,.high-contrast.app-shell .female-health-stat strong,.high-contrast.app-shell .female-health-stat small,.high-contrast.app-shell .female-health-stat span:not(.female-stat-icon),.high-contrast.app-shell .female-muted,.high-contrast.app-shell .female-history-item strong,.high-contrast.app-shell .female-history-item small { color:#111318; }
+.dark-mode.high-contrast.app-shell .female-health-intro,.dark-mode.high-contrast.app-shell .female-health-stat,.dark-mode.high-contrast.app-shell .female-cycle-calendar,.dark-mode.high-contrast.app-shell .female-cycle-prediction,.dark-mode.high-contrast.app-shell .female-section-panel,.dark-mode.high-contrast.app-shell .female-pregnancy-panel { background:#111318; border-color:#fff; }
+.dark-mode.high-contrast.app-shell .female-health-intro h2,.dark-mode.high-contrast.app-shell .female-panel-heading h3,.dark-mode.high-contrast.app-shell .female-health-stat strong,.dark-mode.high-contrast.app-shell .female-health-stat small,.dark-mode.high-contrast.app-shell .female-health-stat span:not(.female-stat-icon),.dark-mode.high-contrast.app-shell .female-muted,.dark-mode.high-contrast.app-shell .female-history-item strong,.dark-mode.high-contrast.app-shell .female-history-item small { color:#fff; }
+.female-health-main-grid { grid-template-columns:minmax(0,1fr); }
+.female-pregnancy-panel { padding:0; overflow:hidden; }
+.female-pregnancy-toggle { display:flex; align-items:center; gap:12px; width:100%; padding:14px 17px; border:0; background:transparent; text-align:left; }
+.female-pregnancy-toggle>span:nth-child(2) { display:grid; flex:1; gap:4px; }
+.female-pregnancy-toggle strong { color:#624c58; font-size:11px; }
+.female-pregnancy-toggle small { color:#988c92; font-size:9px; }
+.female-pregnancy-chevron { display:grid; place-items:center; width:25px; height:25px; border-radius:7px; background:#f8edf2; color:#a45f7d; font-size:18px; }
+.female-pregnancy-panel>.female-pregnancy-active,.female-pregnancy-panel>.female-pregnancy-form,.female-pregnancy-panel>.female-pregnancy-confirm { padding:4px 17px 17px; }
+.female-pregnancy-panel>.female-pregnancy-form { justify-content:flex-start; }
+.dark-mode.app-shell .female-pregnancy-toggle strong { color:#ecd5df; }
+.dark-mode.app-shell .female-pregnancy-toggle small { color:#b5a4ac; }
+.dark-mode.app-shell .female-pregnancy-chevron { background:#3b3037; color:#f0b7d0; }
+.dark-mode.app-shell .female-pregnancy-panel>.female-pregnancy-active,.dark-mode.app-shell .female-pregnancy-panel>.female-pregnancy-form,.dark-mode.app-shell .female-pregnancy-panel>.female-pregnancy-confirm { color:#e4d5dc; }
+.high-contrast.app-shell .female-pregnancy-toggle strong,.high-contrast.app-shell .female-pregnancy-toggle small { color:#111318; }
+.dark-mode.high-contrast.app-shell .female-pregnancy-toggle strong,.dark-mode.high-contrast.app-shell .female-pregnancy-toggle small { color:#fff; }
+.contraceptive-form { grid-template-columns:1fr 1fr; }
+.contraceptive-form>label:first-child,.contraceptive-pack-field,.contraceptive-form>.check-field { grid-column:1/-1; }
+.contraceptive-pack-field { min-width:0; margin:0; padding:0; border:0; }
+.contraceptive-pack-field legend { margin-bottom:8px; color:#6a555f; font-size:10px; font-weight:700; }
+.contraceptive-pack-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.contraceptive-pack-option { display:grid; gap:5px; min-height:58px; padding:10px; border:1px solid #e5e9e7; border-radius:8px; background:#fff; color:#62736d; text-align:left; }
+.contraceptive-pack-option:hover { border-color:#d598b1; background:#fff8fb; }
+.contraceptive-pack-option.selected { border-color:#b65e83; background:#fbf0f5; box-shadow:inset 0 0 0 1px #b65e83; }
+.contraceptive-pack-option strong { color:#654d59; font-size:10px; }
+.contraceptive-pack-option small,.contraceptive-pack-note { color:#8c817f; font-size:8px; line-height:1.45; }
+.contraceptive-pack-note { display:block; margin-top:8px; }
+.dark-mode.app-shell .contraceptive-pack-field legend,.dark-mode.app-shell .contraceptive-pack-option strong { color:#ecd5df; }
+.dark-mode.app-shell .contraceptive-pack-option { border-color:#40534d; background:#252f2c; }
+.dark-mode.app-shell .contraceptive-pack-option:hover,.dark-mode.app-shell .contraceptive-pack-option.selected { border-color:#a56b86; background:#3b3037; }
+.dark-mode.app-shell .contraceptive-pack-option small,.dark-mode.app-shell .contraceptive-pack-note { color:#b5a4ac; }
+.high-contrast.app-shell .contraceptive-pack-option { border:2px solid #111318; background:#fff; }
+.high-contrast.app-shell .contraceptive-pack-option strong,.high-contrast.app-shell .contraceptive-pack-option small,.high-contrast.app-shell .contraceptive-pack-field legend,.high-contrast.app-shell .contraceptive-pack-note { color:#111318; }
+.high-contrast.app-shell .contraceptive-pack-option.selected { background:#e6e8ec; }
+.dark-mode.high-contrast.app-shell .contraceptive-pack-option { border-color:#fff; background:#111318; }
+.dark-mode.high-contrast.app-shell .contraceptive-pack-option strong,.dark-mode.high-contrast.app-shell .contraceptive-pack-option small,.dark-mode.high-contrast.app-shell .contraceptive-pack-field legend,.dark-mode.high-contrast.app-shell .contraceptive-pack-note { color:#fff; }
+@media (max-width:700px) { .contraceptive-form { grid-template-columns:1fr; }.contraceptive-form>label:first-child,.contraceptive-pack-field,.contraceptive-form>.check-field { grid-column:auto; }.female-pregnancy-toggle { padding:13px; }.female-pregnancy-panel>.female-pregnancy-active,.female-pregnancy-panel>.female-pregnancy-form,.female-pregnancy-panel>.female-pregnancy-confirm { padding:4px 13px 13px; } }
+@media (max-width:900px) { .female-health-summary-grid { grid-template-columns:1fr 1fr; }.female-health-main-grid { grid-template-columns:1fr; } }
+@media (max-width:700px) { .female-health-summary-grid,.female-history-grid { grid-template-columns:1fr; }.female-health-intro { align-items:flex-start; flex-direction:column; }.female-health-intro .primary-btn { width:100%; justify-content:center; }.female-contraceptive-row,.female-empty-inline,.female-pregnancy-active,.female-pregnancy-form,.female-pregnancy-confirm { align-items:flex-start; flex-direction:column; }.female-dose-actions { justify-content:flex-start; }.female-health-stat { min-height:78px; }.female-cycle-calendar,.female-cycle-prediction,.female-section-panel,.female-pregnancy-panel { padding:13px; } }
+.app-shell .nav-item[class*="nav-"].active { background:color-mix(in srgb, var(--nav-accent) 13%, white); color:var(--nav-accent); box-shadow:inset 3px 0 0 var(--nav-accent); }
+.dark-mode.app-shell .nav-item[class*="nav-"]:hover { background:color-mix(in srgb, var(--nav-accent) 16%, #21332f); }
+.dark-mode.app-shell .nav-item[class*="nav-"].active { background:color-mix(in srgb, var(--nav-accent) 24%, #21332f); color:color-mix(in srgb, var(--nav-accent) 72%, white); box-shadow:inset 3px 0 0 var(--nav-accent); }
+.high-contrast.app-shell .nav-item[class*="nav-"] svg { color:inherit; }
+.resource-layout { display:flex; flex-direction:column; gap:14px; }
+.calendar-card { width:100%; margin:0 0 18px; padding:15px 17px 10px; background:#fff; border:1px solid #e3ece8; border-radius:13px; box-shadow:0 4px 14px #244f4210; }
+.calendar-card-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.calendar-month-label { display:flex; align-items:center; gap:10px; color:var(--profile-accent); padding:2px 0; text-align:left; }
+.calendar-month-label > span { display:flex; flex-direction:column; gap:2px; color:#829890; font-size:9px; }
+.calendar-month-label strong { color:#3d6058; font-size:13px; }
+.calendar-controls { display:flex; align-items:center; gap:5px; }
+.calendar-controls > button { display:grid; place-items:center; width:30px; height:30px; border:1px solid #e5eeea; border-radius:8px; background:#f8fbf9; color:#6f8981; }
+.calendar-controls > button:nth-child(1) svg { transform:rotate(180deg); }
+.calendar-week { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; }
+.calendar-day { position:relative; min-width:0; min-height:51px; border:1px solid #eef3f1; border-radius:9px; background:#f8fbf9; color:#617971; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:13px 2px 9px; }
+.calendar-day-name { color:#93a59f; font-size:9px; text-transform:uppercase; }
+.calendar-day strong { font-size:12px; font-weight:600; }
+.calendar-day-dots { position:absolute; bottom:4px; left:50%; display:flex; align-items:center; justify-content:center; gap:3px; transform:translateX(-50%); }
+.calendar-day-dot { display:block; width:5px; height:5px; border-radius:50%; background:var(--calendar-dot-color,#5078C8); }
+.calendar-day-dot.medications { --calendar-dot-color:#2F916B; }
+.calendar-day-dot.alarms { --calendar-dot-color:#C58322; }
+.calendar-day-dot.prescriptions { --calendar-dot-color:#8965AD; }
+.calendar-day-dot.symptoms { --calendar-dot-color:#D06A48; }
+.calendar-day-dot.vitalSigns { --calendar-dot-color:#CF5F68; }
+.calendar-day-dot.appointments { --calendar-dot-color:#318B9B; }
+.calendar-day-dot.exams { --calendar-dot-color:#6D6CC5; }
+.calendar-day-badges { position:absolute; top:3px; right:3px; display:flex; gap:2px; }
+.calendar-day-badge { display:grid; place-items:center; width:15px; height:15px; border-radius:50%; background:#fff; }
+.calendar-day-badge.alarm { color:#A96D13; }
+.calendar-day-badge.agenda { color:#287887; }
+.calendar-day-badge svg { display:block; }
+.calendar-day.selected { background:var(--profile-accent); color:var(--profile-accent-ink,#fff); }
+.calendar-day.selected .calendar-day-name { color:color-mix(in srgb,var(--profile-accent-ink,#fff) 80%,transparent); }
+.calendar-load-error { margin:8px 0 0; color:#9a4438; font-size:10px; text-align:center; }
+.calendar-selection { width:100%; min-height:48px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border:0; border-top:1px solid #edf2f0; border-radius:0; background:transparent; color:#58766e; text-align:center; margin:11px 0 0; padding:8px 12px 2px; cursor:pointer; }
+.calendar-selection strong { color:var(--profile-accent); font-size:10px; }
+.calendar-selection > svg { color:var(--profile-accent); transform:rotate(90deg); transition:transform .2s ease; }
+.calendar-card.expanded .calendar-selection > svg { transform:rotate(-90deg); }
+.calendar-selection:hover { background:color-mix(in srgb,var(--profile-accent) 5%,white); }
+.calendar-selection:focus-visible { outline:3px solid color-mix(in srgb,var(--profile-accent) 45%,white); outline-offset:2px; }
+.calendar-weekday-headings,.calendar-month-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:5px; }
+.calendar-weekday-headings { margin:2px 0 7px; }
+.calendar-weekday-headings span { color:#91a39d; text-align:center; font-size:9px; }
+.calendar-month-grid .calendar-day { min-height:42px; }
+.dark-mode.app-shell .calendar-card { background:var(--dark-surface,#292D33); border-color:var(--dark-border,#41464e); box-shadow:none; }
+.dark-mode.app-shell .calendar-month-label > span,.dark-mode.app-shell .calendar-day-name,.dark-mode.app-shell .calendar-weekday-headings span { color:#9bb0a8; }
+.dark-mode.app-shell .calendar-month-label strong { color:#d5e4de; }
+.dark-mode.app-shell .calendar-controls > button { background:#22262c; border-color:#41464e; color:#bdcec8; }
+.dark-mode.app-shell .calendar-day { color:#d4e3dd; background:#22262c; border-color:#41464e; }
+.dark-mode.app-shell .calendar-day-badge { background:#22262c; }
+.dark-mode.app-shell .calendar-load-error { color:#ffd8d1; }
+.dark-mode.app-shell .calendar-day.selected { background:var(--profile-accent); border-color:var(--profile-accent); }
+.dark-mode.app-shell .calendar-selection { background:#22262c; border-color:#41464e; }
+.dark-mode.app-shell .calendar-selection strong,.dark-mode.app-shell .calendar-selection > svg { color:var(--profile-accent-dark); }
+.dark-mode.app-shell .calendar-selection:hover { background:color-mix(in srgb,var(--profile-accent) 15%,#22262c); }
+.high-contrast.app-shell .calendar-card { background:#fff; border:2px solid #111318; box-shadow:none; }
+.high-contrast.app-shell .calendar-month-label { color:#111318; }
+.high-contrast.app-shell .calendar-month-label strong,.high-contrast.app-shell .calendar-day,.high-contrast.app-shell .calendar-selection strong { color:#111318; }
+.high-contrast.app-shell .calendar-selection,.high-contrast.app-shell .calendar-selection:hover { background:#fff; color:#111318; border:0; border-top:1px solid #111318; }
+.high-contrast.app-shell .calendar-selection > svg { color:#111318; }
+.high-contrast.app-shell .calendar-controls > button { background:#fff; color:#111318; border:1px solid #111318; }
+.high-contrast.app-shell .calendar-day.selected { background:#111318; color:#fff; }
+.high-contrast.app-shell .calendar-day.selected .calendar-day-name { color:#fff; }
+.high-contrast.app-shell .calendar-day-badge { background:#fff; border:1px solid #111318; }
+.dark-mode.high-contrast.app-shell .calendar-card { background:#111318; border-color:#fff; }
+.dark-mode.high-contrast.app-shell .calendar-month-label,.dark-mode.high-contrast.app-shell .calendar-month-label strong,.dark-mode.high-contrast.app-shell .calendar-day,.dark-mode.high-contrast.app-shell .calendar-selection,.dark-mode.high-contrast.app-shell .calendar-selection strong,.dark-mode.high-contrast.app-shell .calendar-selection small,.dark-mode.high-contrast.app-shell .calendar-selection > svg { color:#fff; }
+.dark-mode.high-contrast.app-shell .calendar-selection,.dark-mode.high-contrast.app-shell .calendar-selection:hover { background:#000; border-color:#fff; }
+.dark-mode.high-contrast.app-shell .calendar-controls > button { background:#000; color:#fff; border-color:#fff; }
+.dark-mode.high-contrast.app-shell .calendar-day.selected { background:#fff; color:#000; }
+.dark-mode.high-contrast.app-shell .calendar-day.selected .calendar-day-name { color:#000; }
+.dark-mode.high-contrast.app-shell .calendar-day-badge { background:#000; border:1px solid #fff; }
+.guest-login-button { width:100%; justify-content:center; margin-top:10px; }
+.guest-account-actions { display:flex; align-items:center; gap:8px; }
+.guest-login-cta,.profile-logout { display:flex; align-items:center; gap:7px; border:1px solid #dce9e5; border-radius:7px; background:#fff; color:#65817a; padding:8px 10px; font-size:10px; font-weight:700; }
+.profile-menu .profile-logout { border-top:1px solid #edf2f0; border-radius:0; background:transparent; width:100%; color:#8b625b; padding:10px 5px 5px; margin-top:6px; }
+.guest-register-cta { border:1px solid #cce3dc; border-radius:8px; background:#f5fbf9; color:#27796e; padding:9px 12px; font-size:10px; font-weight:700; white-space:nowrap; }
+.guest-settings-notice,.guest-migration-banner { display:flex; flex-direction:column; align-items:flex-start; gap:8px; border:1px solid #cce3dc; border-radius:9px; background:#f5fbf9; padding:13px; margin:0 0 15px; }
+.guest-settings-notice strong { color:#3d7066; font-size:11px; }
+.guest-settings-notice span,.guest-migration-banner span { color:#78958d; font-size:10px; line-height:1.5; }
+.guest-settings-notice .soft-btn,.guest-migration-banner .soft-btn { margin:2px 0 0; }
+.guest-migration-banner { flex-direction:row; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.guest-migration-banner .soft-btn { flex:none; }
+.guest-migration-choice { display:flex !important; align-items:flex-start; gap:9px; padding:10px; border:1px solid #dcece7; border-radius:8px; background:#f8fbf9; line-height:1.5; }
+.auth-form-card form .guest-migration-choice input { display:inline-block; width:auto; flex:none; margin:1px 0 0; accent-color:#287f73; }
+.dark-mode.app-shell .guest-settings-notice,.dark-mode.app-shell .guest-migration-banner { background:#263b35; border-color:#405a52; }
+.dark-mode.app-shell .guest-settings-notice strong { color:#d6e7e1; }
+.dark-mode.app-shell .guest-settings-notice span,.dark-mode.app-shell .guest-migration-banner span { color:#a9c0b8; }
+.dark-mode.app-shell .guest-register-cta { background:#263b35; border-color:#405a52; color:#c8e6dc; }
+.dark-mode.app-shell .guest-login-cta { background:#22262c; border-color:#41464e; color:#bdcec8; }
+.dark-mode.app-shell .profile-menu .profile-logout { border-color:#41464e; color:#edb9af; }
+.dark-mode.auth-page .guest-migration-choice { background:#263b35; border-color:#405a52; color:#c8e6dc; }
+@media (max-width:760px) { .guest-account-actions { gap:4px; }.guest-login-cta,.guest-register-cta { padding:8px; font-size:9px; }.guest-migration-banner { align-items:flex-start; flex-direction:column; } }
+.vital-type-field { min-width:0; border:0; margin:0 0 15px; padding:0; }
+.vital-type-field legend { color:#69817a; font-size:10px; font-weight:700; margin-bottom:8px; }
+.vital-type-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }

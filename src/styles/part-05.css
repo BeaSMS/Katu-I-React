@@ -1,0 +1,150 @@
+.profile-customize { width:100%; display:flex; align-items:center; gap:6px; border:0; border-top:1px solid #e9efed; background:none; color:#6d8c83; padding:10px 6px 7px; font-size:10px; font-weight:700; margin-top:4px; text-align:left; }
+.profile-customize:hover { color:var(--profile-accent); background:var(--profile-accent-soft); }
+.dark-mode .profile-customize { border-color:#344b45; color:#aac5bc; }
+.dark-mode .profile-customize:hover { color:#d1ece3; background:#2d5148; }
+.profile-color-modal { width:min(100%,460px); }
+.color-choice-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+.color-choice { position:relative; display:flex; align-items:center; gap:7px; min-height:52px; border:1px solid #dbe9e4; background:#fff; border-radius:10px; color:#69847c; padding:9px; text-align:left; }
+.color-choice:hover { border-color:#9ccfc3; }
+.color-choice.selected { border-color:var(--profile-accent); background:var(--profile-accent-soft); box-shadow:0 0 0 2px color-mix(in srgb, var(--profile-accent) 18%, transparent); }
+.color-choice strong { font-size:10px; }
+.color-choice > svg { margin-left:auto; color:var(--profile-accent); }
+.color-swatch { width:20px; height:20px; flex:0 0 20px; border-radius:50%; box-shadow:inset 0 0 0 1px #00000014; }
+.dark-mode .color-choice { background:#21332f; border-color:#456159; color:#c7ded6; }
+.dark-mode .color-choice.selected { background:#2d5148; border-color:var(--profile-accent-dark); }
+.dark-mode .color-choice > svg { color:var(--profile-accent-dark); }
+@media (max-width:600px) { .color-choice-grid { grid-template-columns:repeat(2,1fr); } }
+/* O tema do perfil também participa do contraste no modo escuro. */
+.app-shell .primary-btn { color:var(--profile-accent-ink, #fff); }
+.dark-mode.app-shell .sidebar { border-right-color:color-mix(in srgb, var(--profile-accent) 30%, #344b45); box-shadow:inset -3px 0 0 color-mix(in srgb, var(--profile-accent) 28%, transparent); }
+.dark-mode.app-shell .topbar { border-bottom-color:color-mix(in srgb, var(--profile-accent) 28%, #344b45); }
+.dark-mode.app-shell .nav-item.active { color:var(--profile-accent-dark); background:color-mix(in srgb, var(--profile-accent) 24%, #21332f); box-shadow:inset 3px 0 0 var(--profile-accent); }
+.dark-mode.app-shell .nav-item:hover { background:color-mix(in srgb, var(--profile-accent) 13%, #21332f); }
+.dark-mode.app-shell .primary-btn { background:var(--profile-accent); color:var(--profile-accent-ink, #fff); box-shadow:0 5px 16px color-mix(in srgb, var(--profile-accent) 22%, transparent); }
+.dark-mode.app-shell .primary-btn:hover { background:var(--profile-accent-dark); }
+.dark-mode.app-shell .outline-btn { color:var(--profile-accent-dark); border-color:var(--profile-accent); }
+.dark-mode.app-shell .hero-card { background:linear-gradient(105deg, color-mix(in srgb, var(--profile-accent) 24%, #21332f), color-mix(in srgb, var(--profile-accent) 8%, #354138) 78%); border:1px solid color-mix(in srgb, var(--profile-accent) 24%, #344b45); }
+.dark-mode.app-shell .hero-kicker,.dark-mode.app-shell .eyebrow { color:var(--profile-accent-dark); }
+.dark-mode.app-shell .metric-card,.dark-mode.app-shell .panel { border-color:color-mix(in srgb, var(--profile-accent) 20%, #344b45); }
+.dark-mode.app-shell .metric-card:first-child .metric-icon,.dark-mode.app-shell .empty-state-icon { color:var(--profile-accent-dark); background:color-mix(in srgb, var(--profile-accent) 20%, #294039); }
+.dark-mode.app-shell .settings-tab.active { color:var(--profile-accent-dark); background:color-mix(in srgb, var(--profile-accent) 22%, #21332f); }
+.dark-mode.app-shell .toggle.on { background:var(--profile-accent); }
+.dark-mode.app-shell .profile-button { border-radius:10px; padding:4px 6px 4px 4px; background:color-mix(in srgb, var(--profile-accent) 10%, transparent); }
+.dark-mode.app-shell .profile-menu { border-color:color-mix(in srgb, var(--profile-accent) 30%, #344b45); box-shadow:0 12px 35px color-mix(in srgb, var(--profile-accent) 16%, #000); }
+/* Fundo neutro no dark mode: a cor do perfil fica reservada aos acentos. */
+.dark-mode.app-shell { --dark-page:#16181C; --dark-surface:#202328; --dark-raised:#282C33; --dark-border:#383D46; background:var(--dark-page); color:#E7E9ED; }
+.dark-mode.app-shell .main-content { background:var(--dark-page); }
+.dark-mode.app-shell .sidebar,.dark-mode.app-shell .topbar,.dark-mode.app-shell .panel,.dark-mode.app-shell .metric-card,.dark-mode.app-shell .modal-card,.dark-mode.app-shell .profile-menu { background:var(--dark-surface); border-color:var(--dark-border); }
+.dark-mode.app-shell .topbar { background:#1D2025; }
+.dark-mode.app-shell .help-card,.dark-mode.app-shell .stock-highlight,.dark-mode.app-shell .upload-zone,.dark-mode.app-shell .privacy-notice,.dark-mode.app-shell .pregnancy-confirm,.dark-mode.app-shell .pregnancy-active,.dark-mode.app-shell .dependent-summary,.dark-mode.app-shell .symptom-intensity { background:var(--dark-raised); border-color:var(--dark-border); }
+.ai-settings { border-top:1px solid #edf2f0; padding-top:18px; }
+.ai-settings-intro { display:flex; align-items:center; gap:11px; background:#f5fbf9; border:1px solid #dcece7; border-radius:10px; padding:13px; margin-bottom:18px; }
+.ai-settings-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:9px; background:#e6f3ef; color:#be8b4e; font-size:18px; }
+.ai-settings-intro strong,.ai-settings-intro span { display:block; }
+.ai-settings-intro strong { color:#4d7068; font-size:11px; }
+.ai-settings-intro span { color:#91a7a0; font-size:9px; line-height:1.5; margin-top:3px; }
+.ai-settings > label { display:block; color:#69817a; font-size:10px; font-weight:700; margin-bottom:13px; }
+.ai-settings > label input,.ai-settings > label select { display:block; width:100%; border:1px solid #dae8e3; border-radius:7px; outline:none; padding:10px 11px; color:#45635c; font-size:11px; margin-top:6px; background:#fff; }
+.field-hint { color:#79a398; font-size:9px; font-weight:400; margin-left:6px; }
+.ai-settings-actions { display:flex; align-items:center; gap:12px; margin-top:17px; }
+.ai-settings-actions .primary-btn { margin:0; }
+.ai-settings-actions .cancel-btn { padding-left:0; }
+.form-message { display:block; color:#4b8c7d; font-size:9px; margin-top:12px; }
+.dark-mode .ai-settings { border-color:var(--dark-border); }
+.dark-mode .ai-settings-intro { background:var(--dark-raised); border-color:var(--dark-border); }
+.dark-mode .ai-settings-intro strong { color:#cde5dc; }
+.dark-mode .ai-settings-intro span { color:#9bb4ac; }
+.dark-mode .ai-settings > label { color:#acc2bb; }
+.dark-mode .ai-settings > label input,.dark-mode .ai-settings > label select { background:#20312e; border-color:#405b53; color:#d7e6e1; }
+.dark-mode .form-message { color:#9ed7c4; }
+.help-page { max-width:880px; }
+.help-search { display:flex; align-items:center; gap:10px; background:#fff; border:1px solid #dce9e5; border-radius:10px; padding:13px 15px; margin-bottom:18px; color:#7e9c94; }
+.help-search input { width:100%; border:0; outline:0; background:transparent; color:#45635c; font-size:11px; }
+.help-search input::placeholder { color:#a3b3ae; }
+.faq-list { display:flex; flex-direction:column; gap:8px; }
+.faq-item { background:#fff; border:1px solid #e4eeeb; border-radius:10px; overflow:hidden; }
+.faq-item.open { border-color:#b8d9d0; }
+.faq-question { width:100%; display:flex; align-items:center; justify-content:space-between; gap:15px; border:0; background:transparent; padding:15px 17px; text-align:left; color:#78958d; }
+.faq-question > span { display:flex; flex-direction:column; gap:5px; }
+.faq-question small { color:#4a9a8a; font-size:8px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; }
+.faq-question strong { color:#4d7068; font-size:11px; }
+.faq-question svg { transform:rotate(90deg); transition:transform .2s ease; }
+.faq-item.open .faq-question svg { transform:rotate(-90deg); }
+.faq-answer { border-top:1px solid #edf2f0; color:#78938c; font-size:10px; line-height:1.65; margin:0; padding:14px 17px 16px; }
+.faq-empty { text-align:center; padding:35px 20px; }
+.faq-empty .empty-icon { margin-bottom:12px; }
+.faq-empty strong { color:#4d7068; font-size:11px; }
+.faq-empty p { color:#94a8a2; font-size:10px; }
+.help-contact { display:flex; align-items:center; gap:12px; margin-top:18px; padding:17px; }
+.help-contact-icon { display:grid; place-items:center; width:38px; height:38px; flex:none; border-radius:10px; color:#398b7e; background:#e5f3ef; }
+.help-contact > div:nth-child(2) { flex:1; }
+.help-contact strong { color:#4d7068; font-size:11px; }
+.help-contact p { color:#92a7a0; font-size:9px; margin:5px 0 0; }
+.help-contact .outline-btn { margin:0; white-space:nowrap; }
+.dark-mode .help-search,.dark-mode .faq-item { background:var(--dark-raised); border-color:var(--dark-border); }
+.dark-mode .help-search input { color:#d7e6e1; }
+.dark-mode .faq-question strong,.dark-mode .faq-empty strong,.dark-mode .help-contact strong { color:#cde5dc; }
+.dark-mode .faq-question small { color:#9ed7c4; }
+.dark-mode .faq-answer { border-color:var(--dark-border); color:#a9c0b8; }
+.dark-mode .help-contact-icon { background:#315449; color:#a6dbc9; }
+.dark-mode .help-contact p { color:#9bb4ac; }
+.auth-page { min-height:100vh; background:linear-gradient(135deg,#f7fbf9 0%,#eef7f3 55%,#e7f1ed 100%); padding:30px 6%; color:#315b53; }
+.auth-brand { max-width:1100px; margin:0 auto; }
+.auth-layout { max-width:1040px; min-height:calc(100vh - 130px); margin:0 auto; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:80px; }
+.auth-hero h1 { max-width:560px; color:#28564d; font-family:Georgia,serif; font-size:48px; line-height:1.08; letter-spacing:-1.2px; margin:14px 0 18px; }
+.auth-hero > p:not(.eyebrow) { max-width:470px; color:#76938b; font-size:14px; line-height:1.7; }
+.auth-highlights { display:flex; flex-direction:column; gap:11px; margin-top:26px; color:#5d8077; font-size:11px; }
+.auth-highlights span { display:flex; align-items:center; gap:8px; }
+.auth-highlights svg { color:#4c9c8b; }
+.auth-card { background:#fff; border:1px solid #deebe6; border-radius:18px; box-shadow:0 20px 60px #4b7d6818; padding:34px; }
+.auth-card h2 { color:#3a665e; font-family:Georgia,serif; font-size:25px; margin:0 0 8px; }
+.auth-card > p { color:#94aaa4; font-size:11px; line-height:1.6; margin:0 0 24px; }
+.auth-mark { width:54px; height:54px; display:grid; place-items:center; background:#e4f4ef; border-radius:16px; color:#d09a56; font-size:27px; margin-bottom:20px; }
+.auth-mark.small-mark { width:42px; height:42px; border-radius:12px; font-size:21px; margin-bottom:16px; }
+.auth-main-button,.auth-secondary-button { width:100%; justify-content:center; margin:0; }
+.auth-secondary-button { margin-top:10px; }
+.auth-card > small { display:block; color:#a4b5b0; font-size:9px; line-height:1.5; text-align:center; margin-top:17px; }
+.auth-form-wrap { max-width:430px; margin:0 auto; min-height:calc(100vh - 130px); display:grid; place-items:center; }
+.auth-form-card { width:100%; }
+.auth-back { border:0; background:none; color:#6f9188; padding:0; font-size:10px; margin-bottom:23px; }
+.auth-form-card form label { display:block; color:#68847c; font-size:10px; font-weight:700; margin-bottom:13px; }
+.auth-form-card form input { display:block; width:100%; box-sizing:border-box; border:1px solid #d9e8e2; border-radius:8px; outline:0; padding:11px 12px; color:#45655d; font-size:11px; margin-top:6px; }
+.auth-form-card form input:focus { border-color:#6db4a3; box-shadow:0 0 0 3px #e9f6f1; }
+.auth-submit { width:100%; justify-content:center; margin-top:8px; }
+.auth-submit:disabled { opacity:.65; cursor:wait; }
+.auth-error { display:block; background:#fff1ed; border:1px solid #f2d9d1; border-radius:7px; color:#b56f63; font-size:9px; line-height:1.5; padding:9px; margin:3px 0 12px; }
+.auth-switch { width:100%; border:0; background:none; color:#398b7e; font-size:10px; font-weight:700; margin-top:18px; }
+.dark-mode.auth-page { background:#172521; }
+.dark-mode.auth-page .auth-hero h1,.dark-mode.auth-page .auth-card h2 { color:#d7e7e1; }
+.dark-mode.auth-page .auth-hero > p:not(.eyebrow),.dark-mode.auth-page .auth-card > p { color:#9ab5ac; }
+.dark-mode.auth-page .auth-card { background:#20312e; border-color:#3d5a52; }
+.dark-mode.auth-page .auth-form-card form label { color:#b1c8c0; }
+.dark-mode.auth-page .auth-form-card form input { background:#172521; border-color:#47655b; color:#e0eeea; }
+.dark-mode.auth-page .auth-mark { background:#315449; }
+.dark-mode.auth-page .auth-highlights,.dark-mode.auth-page .auth-back { color:#a9c8be; }
+.dark-mode.auth-page .auth-card > small { color:#9ab5ac; }
+.dark-mode.app-shell .search,.dark-mode.app-shell .date-filter { background:#292D33; border-color:var(--dark-border); }
+.dark-mode.app-shell .hero-card { background:linear-gradient(105deg, color-mix(in srgb, var(--profile-accent) 18%, #202328), #292D33 78%); border-color:color-mix(in srgb, var(--profile-accent) 24%, var(--dark-border)); }
+.dark-mode.app-shell .nav-item:hover,.dark-mode.app-shell .profile-option:hover,.dark-mode.app-shell .quick-add-item:hover { background:#2A2E35; }
+.dark-mode.app-shell .nav-item.active,.dark-mode.app-shell .profile-option.selected { background:color-mix(in srgb, var(--profile-accent) 22%, var(--dark-surface)); }
+.dark-mode.app-shell .settings-tab.active { background:color-mix(in srgb, var(--profile-accent) 20%, var(--dark-surface)); }
+.dark-mode.app-shell .quick-add-menu,.dark-mode.app-shell .female-options-menu { background:var(--dark-surface); border-color:var(--dark-border); }
+.dark-mode.app-shell .quick-add-submenu { background:var(--dark-raised); border-color:var(--profile-accent-dark); }
+.dark-mode.app-shell .modal-form input,.dark-mode.app-shell .modal-form select,.dark-mode.app-shell .modal-form textarea,.dark-mode.app-shell .symptom-field input,.dark-mode.app-shell .dependent-step > input,.dark-mode.app-shell .dependent-step > textarea,.dark-mode.app-shell .health-tags-entry input,.dark-mode.app-shell .onboarding-input input,.dark-mode.app-shell .onboarding-input textarea { background:#292D33; border-color:var(--dark-border); color:#E7E9ED; }
+.dark-mode.app-shell .symptom-kind-tabs button,.dark-mode.app-shell .mood-grid button,.dark-mode.app-shell .symptom-chip,.dark-mode.app-shell .dependent-choices button,.dark-mode.app-shell .health-suggestions button,.dark-mode.app-shell .color-choice { background:var(--dark-surface); border-color:var(--dark-border); }
+.dark-mode.app-shell .symptom-kind-tabs button.selected,.dark-mode.app-shell .mood-grid button.selected,.dark-mode.app-shell .symptom-chip.selected,.dark-mode.app-shell .dependent-choices button.selected,.dark-mode.app-shell .health-suggestions button.selected { background:color-mix(in srgb, var(--profile-accent) 20%, var(--dark-surface)); border-color:var(--profile-accent-dark); }
+/* Escala escolhida pelo usuário. O texto aumenta sem usar zoom geométrico, preservando cliques e reflow dos menus. */
+.app-shell.text-scale-125,.app-shell.text-scale-150,.app-shell.text-scale-175,.app-shell.text-scale-200 { width:100%; min-height:100vh; }
+.app-shell[class*="text-scale-"] :where(p,span,strong,small,label,button,input,select,textarea,a,li) { font-size:calc(1rem * var(--accessibility-scale)) !important; }
+.app-shell[class*="text-scale-"] :where(small,.eyebrow,.sidebar-label,.connection-badge,.profile-name small,.profile-option small,.profile-menu-header small) { font-size:calc(.75rem * var(--accessibility-scale)) !important; }
+.app-shell[class*="text-scale-"] :where(h1) { font-size:calc(2rem * var(--accessibility-scale)) !important; }
+.app-shell[class*="text-scale-"] :where(h2) { font-size:calc(1.5rem * var(--accessibility-scale)) !important; }
+.app-shell[class*="text-scale-"] :where(h3) { font-size:calc(1.15rem * var(--accessibility-scale)) !important; }
+/* Alto contraste usa uma combinação intencionalmente neutra e estados bem separados, sem depender apenas da cor do perfil. */
+.high-contrast.app-shell { background:#FFFFFF; color:#111318; filter:none; }
+.high-contrast.app-shell .main-content { background:#FFFFFF; }
+.high-contrast.app-shell .sidebar,.high-contrast.app-shell .topbar,.high-contrast.app-shell .panel,.high-contrast.app-shell .metric-card,.high-contrast.app-shell .modal-card,.high-contrast.app-shell .profile-menu { background:#FFFFFF; border:2px solid #111318; }
+.high-contrast.app-shell .nav-item,.high-contrast.app-shell .profile-option,.high-contrast.app-shell .settings-tab { color:#111318; }
+.high-contrast.app-shell .nav-item:hover,.high-contrast.app-shell .profile-option:hover,.high-contrast.app-shell .settings-tab:hover { background:#E6E8EC; color:#111318; }
+.high-contrast.app-shell .nav-item.active,.high-contrast.app-shell .profile-option.selected,.high-contrast.app-shell .settings-tab.active { background:#111318; color:#FFFFFF; box-shadow:none; }
+.high-contrast.app-shell .primary-btn,.high-contrast.app-shell .toggle.on { background:#111318; color:#FFFFFF; }
